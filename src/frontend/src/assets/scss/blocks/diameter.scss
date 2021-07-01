@@ -1,4 +1,16 @@
+.diameter__image-wrapper {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
 .diameter__input {
+  position: relative;
   margin-right: 8.7%;
   margin-bottom: 20px;
   padding-top: 7px;
@@ -24,7 +36,6 @@
 
       border-radius: 50%;
       background-color: $green-100;
-      background-image: url("~@/assets/img/diameter.svg");
       background-repeat: no-repeat;
       background-position: center;
     }
