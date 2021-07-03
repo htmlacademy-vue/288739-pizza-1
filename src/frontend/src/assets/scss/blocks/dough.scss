@@ -7,6 +7,12 @@
 
   cursor: pointer;
 
+  img {
+    position: absolute;
+    left: 0;
+    top: -2px;
+  }
+
   b {
     @include r-s16-h19;
 

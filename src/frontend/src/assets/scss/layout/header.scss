@@ -53,6 +53,9 @@
 }
 
 .header__user {
+  display: flex;
+  align-items: center;
+
   a {
     display: block;
 
@@ -98,5 +101,28 @@
     vertical-align: middle;
 
     color: $white;
+  }
+}
+
+.header__login {
+  ::after {
+    margin-left: 8px;
+    content: "";
+    background-size: auto 50%;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+  }
+}
+
+.header__logout {
+  ::before {
+    content: "";
+    background-size: auto 50%;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
   }
 }
