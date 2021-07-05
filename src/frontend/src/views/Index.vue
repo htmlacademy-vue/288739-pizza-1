@@ -41,13 +41,11 @@
                     name="dough"
                   />
 
-                  <div class="dough__content">
-                    <img :src="dough.image" />
-                    <div class="dough__info">
-                      <b>{{ dough.name }}</b>
-                      <span>{{ dough.description }}</span>
-                    </div>
-                  </div>
+                  <SelectorItem
+                    :imageSource="dough.image"
+                    :title="dough.name"
+                    :description="dough.description"
+                  />
                 </div>
               </div>
             </div>
@@ -189,11 +187,12 @@ import misc from "@/static/misc.json";
 import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
 import RadioButton from "@/common/components/RadioButton";
+import SelectorItem from "@/common/components/SelectorItem";
 
 export default {
   name: "Index",
 
-  components: { RadioButton },
+  components: { RadioButton, SelectorItem },
 
   data() {
     return {
@@ -220,4 +219,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.dough__item {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+}
+</style>

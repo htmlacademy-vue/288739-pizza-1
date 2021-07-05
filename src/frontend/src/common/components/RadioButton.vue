@@ -1,5 +1,5 @@
 <template>
-  <div class="radio-input">
+  <div class="radio-button">
     <input
       :id="id"
       :checked="isChecked"
@@ -14,6 +14,8 @@
 
 <script>
 export default {
+  name: "RadioButton",
+
   props: {
     id: {
       type: String,
@@ -39,28 +41,31 @@ export default {
 </script>
 
 <style lang="scss">
-.radio-input {
+.radio-button {
   position: absolute;
-  top: 18px;
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
 
-  label::before {
+  label {
     position: absolute;
-    top: 50%;
-    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 
-    transform: translate(0, -50%);
+    &::before {
+      position: absolute;
 
-    width: 36px;
-    height: 36px;
+      width: 36px;
+      height: 36px;
 
-    content: "";
-    transition: 0.3s;
+      content: "";
+      transition: 0.3s;
 
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
   }
 
   &:hover label::before {
