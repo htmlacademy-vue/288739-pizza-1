@@ -29,22 +29,26 @@
               <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
               <div class="sheet__content dough">
-                <label
-                  v-for="dough in pizza.dough"
+                <div
+                  class="dough__item"
+                  v-for="(dough, index) in pizza.dough"
                   :key="dough.name"
-                  class="dough__input"
                 >
-                  <img :src="dough.image" />
-                  <input
+                  <RadioButton
+                    :id="`dough-input${index}`"
+                    :isChecked="dough.name === 'Тонкое'"
                     :value="dough.name === 'Тонкое' ? 'light' : 'large'"
-                    :checked="dough.name === 'Тонкое'"
-                    type="radio"
-                    name="dought"
-                    class="visually-hidden"
+                    name="dough"
                   />
-                  <b>{{ dough.name }}</b>
-                  <span>{{ dough.description }}</span>
-                </label>
+
+                  <div class="dough__content">
+                    <img :src="dough.image" />
+                    <div class="dough__info">
+                      <b>{{ dough.name }}</b>
+                      <span>{{ dough.description }}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -184,9 +188,12 @@
 import misc from "@/static/misc.json";
 import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
+import RadioButton from "@/common/components/RadioButton";
 
 export default {
   name: "Index",
+
+  components: { RadioButton },
 
   data() {
     return {

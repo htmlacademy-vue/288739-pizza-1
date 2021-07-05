@@ -1,68 +1,36 @@
-.dough__input {
-  position: relative;
-
-  margin-right: 8%;
-  margin-bottom: 20px;
-  padding-left: 50px;
-
-  cursor: pointer;
+.dough__content {
+  display: flex;
+  flex-grow: 1;
+  margin-bottom: 16px;
 
   img {
-    position: absolute;
-    left: 0;
-    top: -2px;
+    margin-right: 5%;
   }
+}
+
+.dough__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
 
   b {
-    @include r-s16-h19;
-
-    &::before {
-      @include p_center-v;
-
-      width: 36px;
-      height: 36px;
-
-      content: "";
-      transition: 0.3s;
-
-      border-radius: 50%;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-    }
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
   }
 
   span {
-    @include l-s11-h13;
-
+    font-size: 11px;
+    font-weight: 300;
+    font-style: normal;
+    line-height: 13px;
     display: block;
   }
+}
 
-  &--light {
-    b {
-      &::before {
-        background-image: url("~@/assets/img/dough-light.svg");
-      }
-    }
-  }
-
-  &--large {
-    b {
-      &::before {
-        background-image: url("~@/assets/img/dough-large.svg");
-      }
-    }
-  }
-
-  &:hover {
-    b::before {
-      box-shadow: $shadow-regular;
-    }
-  }
-
-  input {
-    &:checked + b::before {
-      box-shadow: $shadow-large;
-    }
-  }
+.dough__item {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
 }
