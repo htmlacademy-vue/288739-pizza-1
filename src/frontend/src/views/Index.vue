@@ -36,13 +36,13 @@
                 >
                   <RadioButton
                     :id="`dough-input${index}`"
-                    :isChecked="dough.name === 'Тонкое'"
+                    :is-checked="dough.name === 'Тонкое'"
                     :value="dough.name === 'Тонкое' ? 'light' : 'large'"
                     name="dough"
                   />
 
                   <SelectorItem
-                    :imageSource="dough.image"
+                    :image-source="dough.image"
                     :title="dough.name"
                     :description="dough.description"
                   />
@@ -56,26 +56,25 @@
               <h2 class="title title--small sheet__title">Выберите размер</h2>
 
               <div class="sheet__content diameter">
-                <label
-                  v-for="size in pizza.sizes"
+                <div
+                  class="diameter__item"
+                  v-for="(size, index) in pizza.sizes"
                   :key="size.name"
-                  class="diameter__input"
                 >
-                  <div class="diameter__image-wrapper">
-                    <img
-                      :src="size.image"
-                      :style="{ 'max-width': `${33 * size.multiplier}%` }"
-                    />
-                  </div>
-                  <input
+                  <RadioButton
+                    :id="`diameter-input${index}`"
+                    :is-checked="size.name === '32 см'"
                     :value="getSizeValue(size.name)"
-                    :checked="size.name === '32 см'"
-                    type="radio"
                     name="diameter"
-                    class="visually-hidden"
                   />
-                  <span>{{ size.name }}</span>
-                </label>
+
+                  <SelectorItem
+                    :image-source="size.image"
+                    :image-style="{ 'max-width': `${33 * size.multiplier}%` }"
+                    :image-wrapper-style="{ 'background-color': '#e1ffd7' }"
+                    :title="size.name"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -87,22 +86,24 @@
               </h2>
 
               <div class="sheet__content ingridients">
-                <div class="ingridients__sauce">
+                <div class="ingridients__sauce sauce">
                   <p>Основной соус:</p>
 
-                  <label
-                    v-for="sauce in pizza.sauces"
+                  <div
+                    class="sauce__item"
+                    v-for="(sauce, index) in pizza.sauces"
                     :key="sauce.name"
-                    class="radio ingridients__input"
                   >
-                    <input
-                      :checked="sauce.name === 'Томатный'"
+                    <RadioButton
+                      :id="`sauce-input${index}`"
+                      :is-checked="sauce.name === 'Томатный'"
                       :value="sauce.name === 'Томатный' ? 'tomato' : 'creamy'"
-                      type="radio"
                       name="sauce"
+                      size="small"
                     />
-                    <span>{{ sauce.name }}</span>
-                  </label>
+
+                    <SelectorItem :title="sauce.name" type="small" />
+                  </div>
                 </div>
 
                 <div class="ingridients__filling">
@@ -114,9 +115,11 @@
                       :key="ingredient.name"
                       class="ingridients__item"
                     >
-                      <img :src="ingredient.image" />
-
-                      <span class="filling">{{ ingredient.name }}</span>
+                      <SelectorItem
+                        :image-source="ingredient.image"
+                        :title="ingredient.name"
+                        type="filling"
+                      />
 
                       <div class="counter counter--orange ingridients__counter">
                         <button
@@ -220,9 +223,35 @@ export default {
 </script>
 
 <style lang="scss">
+.dough {
+  padding-bottom: 16px;
+}
+
+.diameter {
+  padding-bottom: 16px;
+}
+
 .dough__item {
   display: flex;
   flex-grow: 1;
   position: relative;
+}
+
+.diameter__item {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+}
+
+.sauce__item {
+  display: flex;
+  position: relative;
+  margin-right: 24px;
+  margin-bottom: 10px;
+}
+
+.ingridients__counter {
+  width: 54px;
+  margin-left: 36px;
 }
 </style>

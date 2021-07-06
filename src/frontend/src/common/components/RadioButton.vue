@@ -1,5 +1,5 @@
 <template>
-  <div class="radio-button">
+  <div :class="radioButtonClass" class="radio-button">
     <input
       :id="id"
       :checked="isChecked"
@@ -35,6 +35,24 @@ export default {
     value: {
       type: String,
       required: false,
+    },
+
+    size: {
+      type: String,
+      required: false,
+    },
+  },
+
+  computed: {
+    radioButtonClass() {
+      switch (this.size) {
+        case "small":
+          return "radio-button--small";
+        case "big":
+          return "radio-button--big";
+        default:
+          return "radio-button--big";
+      }
     },
   },
 };
@@ -74,6 +92,27 @@ export default {
 
   input:checked + label::before {
     box-shadow: $shadow-large;
+  }
+
+  &--small {
+    label {
+      &::before {
+        width: 20px;
+        height: 20px;
+        box-sizing: border-box;
+        border: 1px solid #b3abbc;
+      }
+    }
+
+    &:hover label::before {
+      box-shadow: none;
+      border-color: $purple-800;
+    }
+
+    input:checked + label::before {
+      box-shadow: none;
+      border: 6px solid #41b619;
+    }
   }
 }
 </style>
