@@ -24,32 +24,7 @@
         <div class="content__wrapper">
           <h1 class="title title--big">Конструктор пиццы</h1>
 
-          <div class="content__dough">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">Выберите тесто</h2>
-
-              <div class="sheet__content dough">
-                <div
-                  class="dough__item"
-                  v-for="(dough, index) in pizza.dough"
-                  :key="dough.name"
-                >
-                  <RadioButton
-                    :id="`dough-input${index}`"
-                    :is-checked="dough.name === 'Тонкое'"
-                    :value="dough.name === 'Тонкое' ? 'light' : 'large'"
-                    name="dough"
-                  />
-
-                  <SelectorItem
-                    :image-source="dough.image"
-                    :title="dough.name"
-                    :description="dough.description"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <BuilderDoughSelector :dough="pizza.dough" />
 
           <div class="content__diameter">
             <div class="sheet">
@@ -169,11 +144,12 @@ import user from "@/static/user.json";
 import RadioButton from "@/common/components/RadioButton";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
+import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 
 export default {
   name: "Index",
 
-  components: { RadioButton, SelectorItem, ItemCounter },
+  components: { BuilderDoughSelector, RadioButton, SelectorItem, ItemCounter },
 
   data() {
     return {
@@ -201,18 +177,8 @@ export default {
 </script>
 
 <style lang="scss">
-.dough {
-  padding-bottom: 16px;
-}
-
 .diameter {
   padding-bottom: 16px;
-}
-
-.dough__item {
-  display: flex;
-  flex-grow: 1;
-  position: relative;
 }
 
 .diameter__item {
