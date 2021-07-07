@@ -121,30 +121,7 @@
                         type="filling"
                       />
 
-                      <div class="counter counter--orange ingridients__counter">
-                        <button
-                          type="button"
-                          class="
-                            counter__button
-                            counter__button--disabled
-                            counter__button--minus
-                          "
-                        >
-                          <span class="visually-hidden">Меньше</span>
-                        </button>
-                        <input
-                          type="text"
-                          name="counter"
-                          class="counter__input"
-                          value="0"
-                        />
-                        <button
-                          type="button"
-                          class="counter__button counter__button--plus"
-                        >
-                          <span class="visually-hidden">Больше</span>
-                        </button>
-                      </div>
+                      <ItemCounter />
                     </li>
                   </ul>
                 </div>
@@ -191,11 +168,12 @@ import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
 import RadioButton from "@/common/components/RadioButton";
 import SelectorItem from "@/common/components/SelectorItem";
+import ItemCounter from "@/common/components/ItemCounter";
 
 export default {
   name: "Index",
 
-  components: { RadioButton, SelectorItem },
+  components: { RadioButton, SelectorItem, ItemCounter },
 
   data() {
     return {
