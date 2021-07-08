@@ -1,7 +1,7 @@
 <template>
   <div class="app-layout">
     <AppLayoutHeader />
-    <IndexHome :pizza="pizza" />
+    <IndexHome :pizzaData="pizza" />
   </div>
 </template>
 

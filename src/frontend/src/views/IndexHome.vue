@@ -5,25 +5,25 @@
         <h1 class="title title--big">Конструктор пиццы</h1>
 
         <BuilderDoughSelector
-          :dough="pizza.dough"
-          :selected-item="selectedDough"
-          @select-dough="setSelectedDough"
+          :dough="pizzaData.dough"
+          :selected-item="order.dough"
+          @select-dough="setPizzaDough"
         />
 
         <BuilderSizeSelector
-          :sizes="pizza.sizes"
-          :selected-item="selectedSize"
-          @select-size="setSelectedSize"
+          :sizes="pizzaData.sizes"
+          :selected-item="order.size"
+          @select-size="setPizzaSize"
         />
 
         <BuilderIngredientsSelector
-          :sauces="pizza.sauces"
-          :ingredients="pizza.ingredients"
-          :selected-sauce="selectedSauce"
-          @select-sauce="setSelectedSauce"
+          :sauces="pizzaData.sauces"
+          :ingredients="pizzaData.ingredients"
+          :selected-sauce="order.sauce"
+          @select-sauce="setPizzaSauce"
         />
 
-        <BuilderPizzaView :dough="selectedDough" :sauce="selectedSauce" />
+        <BuilderPizzaView :dough="order.dough" :sauce="order.sauce" />
       </div>
     </form>
   </main>
@@ -46,7 +46,7 @@ export default {
   },
 
   props: {
-    pizza: {
+    pizzaData: {
       type: Object,
       required: true,
     },
@@ -54,23 +54,25 @@ export default {
 
   data() {
     return {
-      selectedDough: this.pizza.dough[0],
-      selectedSize: this.pizza.sizes[0],
-      selectedSauce: this.pizza.sauces[0],
+      order: {
+        dough: this.pizzaData.dough[0],
+        size: this.pizzaData.sizes[0],
+        sauce: this.pizzaData.sauces[0],
+      },
     };
   },
 
   methods: {
-    setSelectedDough(dough) {
-      this.selectedDough = dough;
+    setPizzaDough(dough) {
+      this.order.dough = dough;
     },
 
-    setSelectedSize(size) {
-      this.selectedSize = size;
+    setPizzaSize(size) {
+      this.order.size = size;
     },
 
-    setSelectedSauce(sauce) {
-      this.selectedSauce = sauce;
+    setPizzaSauce(sauce) {
+      this.order.sauce = sauce;
     },
   },
 };
