@@ -11,9 +11,10 @@
         >
           <RadioButton
             :id="`diameter-input${index}`"
-            :is-checked="size.name === '32 см'"
+            :is-checked="size.name === selectedItem.name"
             :value="getSizeValue(size.name)"
             name="diameter"
+            @select="onSelect(size)"
           />
 
           <SelectorItem
@@ -42,6 +43,11 @@ export default {
       type: Array,
       default: () => [],
     },
+
+    selectedItem: {
+      type: Object,
+      required: true,
+    },
   },
 
   methods: {
@@ -56,6 +62,10 @@ export default {
         default:
           return "small";
       }
+    },
+
+    onSelect(selectedItem) {
+      this.$emit("select-size", selectedItem);
     },
   },
 };

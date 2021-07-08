@@ -10,7 +10,7 @@
     </label>
 
     <div class="content__constructor">
-      <div class="pizza pizza--foundation--big-tomato">
+      <div :class="pizzaFoundationClass" class="pizza">
         <div class="pizza__wrapper">
           <div class="pizza__filling pizza__filling--ananas"></div>
           <div class="pizza__filling pizza__filling--bacon"></div>
@@ -36,6 +36,38 @@ export default {
   name: "BuilderPizzaView",
 
   components: { BuilderPriceCounter },
+
+  props: {
+    dough: {
+      type: Object,
+      required: true,
+    },
+
+    sauce: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  computed: {
+    pizzaFoundationClass() {
+      if (this.dough.name === "Тонкое" && this.sauce.name === "Томатный") {
+        return "pizza--foundation--small-tomato";
+      } else if (
+        this.dough.name === "Тонкое" &&
+        this.sauce.name === "Сливочный"
+      ) {
+        return "pizza--foundation--small-creamy";
+      } else if (
+        this.dough.name === "Толстое" &&
+        this.sauce.name === "Томатный"
+      ) {
+        return "pizza--foundation--big-tomato";
+      } else {
+        return "pizza--foundation--big-creamy";
+      }
+    },
+  },
 };
 </script>
 

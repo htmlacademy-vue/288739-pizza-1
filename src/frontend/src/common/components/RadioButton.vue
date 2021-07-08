@@ -7,6 +7,7 @@
       :value="value"
       type="radio"
       class="visually-hidden"
+      @change="onInputChange"
     />
     <label :for="id" />
   </div>
@@ -53,6 +54,12 @@ export default {
         default:
           return "radio-button--big";
       }
+    },
+  },
+
+  methods: {
+    onInputChange() {
+      this.$emit("select");
     },
   },
 };

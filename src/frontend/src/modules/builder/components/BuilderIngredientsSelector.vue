@@ -14,10 +14,11 @@
           >
             <RadioButton
               :id="`sauce-input${index}`"
-              :is-checked="sauce.name === 'Томатный'"
+              :is-checked="sauce.name === selectedSauce.name"
               :value="sauce.name === 'Томатный' ? 'tomato' : 'creamy'"
               name="sauce"
               size="small"
+              @select="onSauceSelect(sauce)"
             />
 
             <SelectorItem :title="sauce.name" type="small" />
@@ -67,6 +68,17 @@ export default {
     ingredients: {
       type: Array,
       default: () => [],
+    },
+
+    selectedSauce: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  methods: {
+    onSauceSelect(selectedItem) {
+      this.$emit("select-sauce", selectedItem);
     },
   },
 };

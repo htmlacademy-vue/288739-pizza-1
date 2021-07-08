@@ -11,9 +11,10 @@
         >
           <RadioButton
             :id="`dough-input${index}`"
-            :is-checked="dough.name === 'Тонкое'"
+            :is-checked="dough.name === selectedItem.name"
             :value="dough.name === 'Тонкое' ? 'light' : 'large'"
             name="dough"
+            @select="onSelect(dough)"
           />
 
           <SelectorItem
@@ -40,6 +41,17 @@ export default {
     dough: {
       type: Array,
       default: () => [],
+    },
+
+    selectedItem: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  methods: {
+    onSelect(selectedItem) {
+      this.$emit("select-dough", selectedItem);
     },
   },
 };
