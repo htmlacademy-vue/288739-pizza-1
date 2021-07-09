@@ -24,18 +24,13 @@
           @change-ingredient-count="onIngredientCountChange"
         />
 
-        <BuilderPizzaView
-          :dough="order.dough"
-          :sauce="order.sauce"
-          :ingredients="order.ingredients"
-        />
+        <BuilderPizzaView :order="order" />
       </div>
     </form>
   </main>
 </template>
 
 <script>
-import Vue from "vue";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
@@ -87,18 +82,26 @@ export default {
         (it) => it.name === ingredient.name
       );
 
+      const ingredientObject = {
+        name: ingredient.name,
+        price: ingredient.price,
+        count: count,
+      };
+
       if (ingredientItemIndex === -1 && count > 0) {
-        Vue.set(this.order.ingredients, this.order.ingredients.length, {
-          name: ingredient.name,
-          count: count,
-        });
+        this.$set(
+          this.order.ingredients,
+          this.order.ingredients.length,
+          ingredientObject
+        );
       } else if (ingredientItemIndex !== -1 && count === 0) {
-        Vue.delete(this.order.ingredients, ingredientItemIndex);
+        this.$delete(this.order.ingredients, ingredientItemIndex);
       } else if (ingredientItemIndex !== -1 && count > 0) {
-        Vue.set(this.order.ingredients, ingredientItemIndex, {
-          name: ingredient.name,
-          count: count,
-        });
+        this.$set(
+          this.order.ingredients,
+          ingredientItemIndex,
+          ingredientObject
+        );
       }
     },
   },

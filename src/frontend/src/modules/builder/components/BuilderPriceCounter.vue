@@ -1,10 +1,17 @@
 <template>
-  <p>Итого: 0 ₽</p>
+  <p>Итого: {{ this.price }} ₽</p>
 </template>
 
 <script>
 export default {
   name: "BuilderPriceCounter",
+
+  props: {
+    price: {
+      type: Number,
+      default: 0,
+    },
+  },
 };
 </script>
 

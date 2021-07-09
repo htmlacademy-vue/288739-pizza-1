@@ -13,7 +13,7 @@
       <div :class="pizzaFoundationClass" class="pizza">
         <div class="pizza__wrapper">
           <div
-            v-for="ingredient in ingredients"
+            v-for="ingredient in order.ingredients"
             :key="ingredient.name"
             :class="getIngredientClass(ingredient)"
             class="pizza__filling"
@@ -23,7 +23,7 @@
     </div>
 
     <div class="content__result">
-      <BuilderPriceCounter />
+      <BuilderPriceCounter :price="pizzaPrice" />
 
       <button type="button" class="button button--disabled" disabled>
         Готовьте!
@@ -41,18 +41,8 @@ export default {
   components: { BuilderPriceCounter },
 
   props: {
-    dough: {
+    order: {
       type: Object,
-      required: true,
-    },
-
-    sauce: {
-      type: Object,
-      required: true,
-    },
-
-    ingredients: {
-      type: Array,
       required: true,
     },
   },
@@ -81,21 +71,40 @@ export default {
 
   computed: {
     pizzaFoundationClass() {
-      if (this.dough.name === "Тонкое" && this.sauce.name === "Томатный") {
+      if (
+        this.order.dough.name === "Тонкое" &&
+        this.order.sauce.name === "Томатный"
+      ) {
         return "pizza--foundation--small-tomato";
       } else if (
-        this.dough.name === "Тонкое" &&
-        this.sauce.name === "Сливочный"
+        this.order.dough.name === "Тонкое" &&
+        this.order.sauce.name === "Сливочный"
       ) {
         return "pizza--foundation--small-creamy";
       } else if (
-        this.dough.name === "Толстое" &&
-        this.sauce.name === "Томатный"
+        this.order.dough.name === "Толстое" &&
+        this.order.sauce.name === "Томатный"
       ) {
         return "pizza--foundation--big-tomato";
       } else {
         return "pizza--foundation--big-creamy";
       }
+    },
+
+    ingredientsTotalPrice() {
+      return this.order.ingredients.reduce(
+        (acc, ingredient) => acc + ingredient.price * ingredient.count,
+        0
+      );
+    },
+
+    pizzaPrice() {
+      return (
+        (this.order.dough.price +
+          this.order.sauce.price +
+          this.ingredientsTotalPrice) *
+        this.order.size.multiplier
+      );
     },
   },
 
