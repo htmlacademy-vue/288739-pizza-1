@@ -3,6 +3,7 @@
     <label class="input">
       <span class="visually-hidden">Название пиццы</span>
       <input
+        v-model="pizzaName"
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
@@ -25,7 +26,12 @@
     <div class="content__result">
       <BuilderPriceCounter :price="pizzaPrice" />
 
-      <button type="button" class="button button--disabled" disabled>
+      <button
+        :disabled="!isPizzaOrderReady"
+        :class="{ 'button--disabled': !isPizzaOrderReady }"
+        type="button"
+        class="button"
+      >
         Готовьте!
       </button>
     </div>
@@ -49,6 +55,8 @@ export default {
 
   data() {
     return {
+      pizzaName: "",
+
       fillingMap: {
         Грибы: "mushrooms",
         Чеддер: "cheddar",
@@ -70,6 +78,10 @@ export default {
   },
 
   computed: {
+    isPizzaOrderReady() {
+      return this.order.ingredients.length !== 0 && this.pizzaName !== "";
+    },
+
     pizzaFoundationClass() {
       if (
         this.order.dough.name === "Тонкое" &&
