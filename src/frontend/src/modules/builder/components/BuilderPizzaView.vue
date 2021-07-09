@@ -12,9 +12,12 @@
     <div class="content__constructor">
       <div :class="pizzaFoundationClass" class="pizza">
         <div class="pizza__wrapper">
-          <div class="pizza__filling pizza__filling--ananas"></div>
-          <div class="pizza__filling pizza__filling--bacon"></div>
-          <div class="pizza__filling pizza__filling--cheddar"></div>
+          <div
+            v-for="ingredient in ingredients"
+            :key="ingredient.name"
+            :class="getIngredientClass(ingredient)"
+            class="pizza__filling"
+          />
         </div>
       </div>
     </div>
@@ -47,6 +50,33 @@ export default {
       type: Object,
       required: true,
     },
+
+    ingredients: {
+      type: Array,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      fillingMap: {
+        Грибы: "mushrooms",
+        Чеддер: "cheddar",
+        Салями: "salami",
+        Ветчина: "ham",
+        Ананас: "ananas",
+        Бекон: "bacon",
+        Лук: "onion",
+        Чили: "chile",
+        Халапеньо: "jalapeno",
+        Маслины: "olives",
+        Томаты: "tomatoes",
+        Лосось: "salmon",
+        Моцарелла: "mozzarella",
+        Пармезан: "parmesan",
+        "Блю чиз": "blue_cheese",
+      },
+    };
   },
 
   computed: {
@@ -66,6 +96,24 @@ export default {
       } else {
         return "pizza--foundation--big-creamy";
       }
+    },
+  },
+
+  methods: {
+    getIngredientClass(ingredient) {
+      const nameClass = `pizza__filling--${this.fillingMap[ingredient.name]}`;
+
+      let countClass = "";
+
+      if (ingredient.count === 2) {
+        countClass = "pizza__filling--second";
+      } else if (ingredient.count === 3) {
+        countClass = "pizza__filling--third";
+      } else {
+        countClass = "";
+      }
+
+      return [nameClass, countClass];
     },
   },
 };

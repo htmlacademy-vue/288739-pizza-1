@@ -1,13 +1,29 @@
 <template>
   <div class="counter counter--orange ingridients__counter">
     <button
+      :disabled="count === 0"
+      :class="{ 'counter__button--disabled': count === 0 }"
       type="button"
-      class="counter__button counter__button--disabled counter__button--minus"
+      class="counter__button counter__button--minus"
+      @click="decrementCounter"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
-    <input type="text" name="counter" class="counter__input" value="0" />
-    <button type="button" class="counter__button counter__button--plus">
+    <input
+      type="text"
+      name="counter"
+      class="counter__input"
+      v-model="count"
+      min="0"
+      max="3"
+    />
+    <button
+      :disabled="count === 3"
+      :class="{ 'counter__button--disabled': count === 3 }"
+      type="button"
+      class="counter__button counter__button--plus"
+      @click="incrementCounter"
+    >
       <span class="visually-hidden">Больше</span>
     </button>
   </div>
@@ -16,6 +32,31 @@
 <script>
 export default {
   name: "ItemCounter",
+
+  data() {
+    return {
+      count: 0,
+    };
+  },
+
+  watch: {
+    count(newCount) {
+      this.$emit("count-change", newCount);
+    },
+  },
+
+  methods: {
+    incrementCounter() {
+      this.count = this.count + 1;
+    },
+
+    decrementCounter() {
+      if (this.count === 0) {
+        return;
+      }
+      this.count = this.count - 1;
+    },
+  },
 };
 </script>
 
@@ -64,19 +105,19 @@ export default {
       background-color: $black;
     }
 
-    &:hover:not(:active):not(#{el}--disabled) {
+    &:hover:not(:active):not(#{$el}--disabled) {
       background-color: $purple-200;
     }
 
-    &:active:not(#{el}--disabled) {
+    &:active:not(#{$el}--disabled) {
       background-color: $purple-300;
     }
 
-    &:focus:not(#{el}--disabled) {
+    &:focus:not(#{$el}--disabled) {
       box-shadow: $shadow-regular;
     }
 
-    &#{el}--disabled {
+    &#{$el}--disabled {
       cursor: default;
 
       &::before {
@@ -113,19 +154,19 @@ export default {
       background-color: $white;
     }
 
-    &:hover:not(:active):not(#{el}--disabled) {
+    &:hover:not(:active):not(#{$el}--disabled) {
       background-color: $green-400;
     }
 
-    &:active:not(#{el}--disabled) {
+    &:active:not(#{$el}--disabled) {
       background-color: $green-600;
     }
 
-    &:focus:not(#{el}--disabled) {
+    &:focus:not(#{$el}--disabled) {
       box-shadow: $shadow-regular;
     }
 
-    &#{el}--disabled {
+    &#{$el}--disabled {
       cursor: default;
 
       opacity: 0.3;
@@ -135,11 +176,11 @@ export default {
   &--orange {
     background-color: $orange-200;
 
-    &:hover:not(:active):not(#{el}--disabled) {
+    &:hover:not(:active):not(#{$el}--disabled) {
       background-color: $orange-100;
     }
 
-    &:active:not(#{el}--disabled) {
+    &:active:not(#{$el}--disabled) {
       background-color: $orange-300;
     }
   }

@@ -30,7 +30,7 @@
 
           <ul class="ingridients__list">
             <li
-              v-for="ingredient in ingredients"
+              v-for="ingredient in ingredientsData"
               :key="ingredient.name"
               class="ingridients__item"
             >
@@ -40,7 +40,9 @@
                 type="filling"
               />
 
-              <ItemCounter />
+              <ItemCounter
+                @count-change="onIngredientCountChange($event, ingredient)"
+              />
             </li>
           </ul>
         </div>
@@ -65,7 +67,7 @@ export default {
       default: () => [],
     },
 
-    ingredients: {
+    ingredientsData: {
       type: Array,
       default: () => [],
     },
@@ -79,6 +81,10 @@ export default {
   methods: {
     onSauceSelect(selectedItem) {
       this.$emit("select-sauce", selectedItem);
+    },
+
+    onIngredientCountChange(count, ingredient) {
+      this.$emit("change-ingredient-count", { count, ingredient });
     },
   },
 };

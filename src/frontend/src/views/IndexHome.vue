@@ -18,18 +18,24 @@
 
         <BuilderIngredientsSelector
           :sauces="pizzaData.sauces"
-          :ingredients="pizzaData.ingredients"
+          :ingredientsData="pizzaData.ingredients"
           :selected-sauce="order.sauce"
           @select-sauce="setPizzaSauce"
+          @change-ingredient-count="onIngredientCountChange"
         />
 
-        <BuilderPizzaView :dough="order.dough" :sauce="order.sauce" />
+        <BuilderPizzaView
+          :dough="order.dough"
+          :sauce="order.sauce"
+          :ingredients="order.ingredients"
+        />
       </div>
     </form>
   </main>
 </template>
 
 <script>
+import Vue from "vue";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
@@ -58,6 +64,7 @@ export default {
         dough: this.pizzaData.dough[0],
         size: this.pizzaData.sizes[0],
         sauce: this.pizzaData.sauces[0],
+        ingredients: [],
       },
     };
   },
@@ -73,6 +80,26 @@ export default {
 
     setPizzaSauce(sauce) {
       this.order.sauce = sauce;
+    },
+
+    onIngredientCountChange({ count, ingredient }) {
+      const ingredientItemIndex = this.order.ingredients.findIndex(
+        (it) => it.name === ingredient.name
+      );
+
+      if (ingredientItemIndex === -1 && count > 0) {
+        Vue.set(this.order.ingredients, this.order.ingredients.length, {
+          name: ingredient.name,
+          count: count,
+        });
+      } else if (ingredientItemIndex !== -1 && count === 0) {
+        Vue.delete(this.order.ingredients, ingredientItemIndex);
+      } else if (ingredientItemIndex !== -1 && count > 0) {
+        Vue.set(this.order.ingredients, ingredientItemIndex, {
+          name: ingredient.name,
+          count: count,
+        });
+      }
     },
   },
 };
