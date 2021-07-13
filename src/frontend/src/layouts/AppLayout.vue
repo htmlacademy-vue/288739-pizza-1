@@ -1,7 +1,7 @@
 <template>
   <div class="app-layout">
-    <AppLayoutHeader />
-    <IndexHome :pizzaData="pizza" />
+    <AppLayoutHeader :pizza="pizza" />
+    <IndexHome :pizzaData="pizzaData" @add-to-cart="onAddPizzaToCart" />
   </div>
 </template>
 
@@ -18,19 +18,31 @@ export default {
   },
 
   props: {
-    misc: {
+    miscData: {
       type: Array,
       required: true,
     },
 
-    pizza: {
+    pizzaData: {
       type: Object,
       required: true,
     },
 
-    user: {
+    userData: {
       type: Object,
       required: true,
+    },
+  },
+
+  data() {
+    return {
+      pizza: null,
+    };
+  },
+
+  methods: {
+    onAddPizzaToCart(pizza) {
+      this.pizza = pizza;
     },
   },
 };

@@ -14,7 +14,7 @@
       <div :class="pizzaFoundationClass" class="pizza">
         <div class="pizza__wrapper">
           <div
-            v-for="ingredient in order.ingredients"
+            v-for="ingredient in pizza.ingredients"
             :key="ingredient.name"
             :class="getIngredientClass(ingredient)"
             class="pizza__filling"
@@ -31,6 +31,7 @@
         :class="{ 'button--disabled': !isPizzaOrderReady }"
         type="button"
         class="button"
+        @click="addToCart"
       >
         Готовьте!
       </button>
@@ -47,7 +48,7 @@ export default {
   components: { BuilderPriceCounter },
 
   props: {
-    order: {
+    pizza: {
       type: Object,
       required: true,
     },
@@ -79,23 +80,23 @@ export default {
 
   computed: {
     isPizzaOrderReady() {
-      return this.order.ingredients.length !== 0 && this.pizzaName !== "";
+      return this.pizza.ingredients.length !== 0 && this.pizzaName !== "";
     },
 
     pizzaFoundationClass() {
       if (
-        this.order.dough.name === "Тонкое" &&
-        this.order.sauce.name === "Томатный"
+        this.pizza.dough.name === "Тонкое" &&
+        this.pizza.sauce.name === "Томатный"
       ) {
         return "pizza--foundation--small-tomato";
       } else if (
-        this.order.dough.name === "Тонкое" &&
-        this.order.sauce.name === "Сливочный"
+        this.pizza.dough.name === "Тонкое" &&
+        this.pizza.sauce.name === "Сливочный"
       ) {
         return "pizza--foundation--small-creamy";
       } else if (
-        this.order.dough.name === "Толстое" &&
-        this.order.sauce.name === "Томатный"
+        this.pizza.dough.name === "Толстое" &&
+        this.pizza.sauce.name === "Томатный"
       ) {
         return "pizza--foundation--big-tomato";
       } else {
@@ -104,7 +105,7 @@ export default {
     },
 
     ingredientsTotalPrice() {
-      return this.order.ingredients.reduce(
+      return this.pizza.ingredients.reduce(
         (acc, ingredient) => acc + ingredient.price * ingredient.count,
         0
       );
@@ -112,10 +113,10 @@ export default {
 
     pizzaPrice() {
       return (
-        (this.order.dough.price +
-          this.order.sauce.price +
+        (this.pizza.dough.price +
+          this.pizza.sauce.price +
           this.ingredientsTotalPrice) *
-        this.order.size.multiplier
+        this.pizza.size.multiplier
       );
     },
   },
@@ -135,6 +136,10 @@ export default {
       }
 
       return [nameClass, countClass];
+    },
+
+    addToCart() {
+      this.$emit("add-to-cart");
     },
   },
 };

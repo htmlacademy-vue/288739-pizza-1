@@ -6,25 +6,25 @@
 
         <BuilderDoughSelector
           :dough="pizzaData.dough"
-          :selected-item="order.dough"
+          :selected-item="pizza.dough"
           @select-dough="setPizzaDough"
         />
 
         <BuilderSizeSelector
           :sizes="pizzaData.sizes"
-          :selected-item="order.size"
+          :selected-item="pizza.size"
           @select-size="setPizzaSize"
         />
 
         <BuilderIngredientsSelector
           :sauces="pizzaData.sauces"
           :ingredientsData="pizzaData.ingredients"
-          :selected-sauce="order.sauce"
+          :selected-sauce="pizza.sauce"
           @select-sauce="setPizzaSauce"
           @change-ingredient-count="onIngredientCountChange"
         />
 
-        <BuilderPizzaView :order="order" />
+        <BuilderPizzaView :pizza="pizza" @add-to-cart="onAddToCart" />
       </div>
     </form>
   </main>
@@ -55,7 +55,7 @@ export default {
 
   data() {
     return {
-      order: {
+      pizza: {
         dough: this.pizzaData.dough[0],
         size: this.pizzaData.sizes[0],
         sauce: this.pizzaData.sauces[0],
@@ -66,19 +66,19 @@ export default {
 
   methods: {
     setPizzaDough(dough) {
-      this.order.dough = dough;
+      this.pizza.dough = dough;
     },
 
     setPizzaSize(size) {
-      this.order.size = size;
+      this.pizza.size = size;
     },
 
     setPizzaSauce(sauce) {
-      this.order.sauce = sauce;
+      this.pizza.sauce = sauce;
     },
 
     onIngredientCountChange({ count, ingredient }) {
-      const ingredientItemIndex = this.order.ingredients.findIndex(
+      const ingredientItemIndex = this.pizza.ingredients.findIndex(
         (it) => it.name === ingredient.name
       );
 
@@ -90,19 +90,23 @@ export default {
 
       if (ingredientItemIndex === -1 && count > 0) {
         this.$set(
-          this.order.ingredients,
-          this.order.ingredients.length,
+          this.pizza.ingredients,
+          this.pizza.ingredients.length,
           ingredientObject
         );
       } else if (ingredientItemIndex !== -1 && count === 0) {
-        this.$delete(this.order.ingredients, ingredientItemIndex);
+        this.$delete(this.pizza.ingredients, ingredientItemIndex);
       } else if (ingredientItemIndex !== -1 && count > 0) {
         this.$set(
-          this.order.ingredients,
+          this.pizza.ingredients,
           ingredientItemIndex,
           ingredientObject
         );
       }
+    },
+
+    onAddToCart() {
+      this.$emit("add-to-cart", this.pizza);
     },
   },
 };

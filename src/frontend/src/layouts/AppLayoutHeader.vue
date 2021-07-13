@@ -11,10 +11,10 @@
       </a>
     </div>
     <div class="header__cart">
-      <a href="cart.html">0 ₽</a>
+      <a href="cart.html">{{ pizzaPrice }} ₽</a>
     </div>
     <div class="header__user">
-      <a href="#" class="header__login"><span>Войти</span></a>
+      <a href="/login" class="header__login"><span>Войти</span></a>
     </div>
   </header>
 </template>
@@ -22,6 +22,39 @@
 <script>
 export default {
   name: "AppLayoutHeader",
+
+  props: {
+    pizza: {
+      type: Object,
+      required: false,
+    },
+  },
+
+  computed: {
+    ingredientsTotalPrice() {
+      if (!this.pizza) {
+        return 0;
+      }
+
+      return this.pizza.ingredients.reduce(
+        (acc, ingredient) => acc + ingredient.price * ingredient.count,
+        0
+      );
+    },
+
+    pizzaPrice() {
+      if (!this.pizza) {
+        return 0;
+      }
+
+      return (
+        (this.pizza.dough.price +
+          this.pizza.sauce.price +
+          this.ingredientsTotalPrice) *
+        this.pizza.size.multiplier
+      );
+    },
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <AppLayout :misc="misc" :pizza="pizza" :user="user" />
+    <AppLayout :miscData="misc" :pizzaData="pizza" :userData="user" />
   </div>
 </template>
 
