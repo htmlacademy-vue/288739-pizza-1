@@ -35,7 +35,10 @@
               class="ingridients__item"
             >
               <AppDrop @drop="$emit('drop', $event)">
-                <AppDrag :transfer-data="ingredient">
+                <AppDrag
+                  :transfer-data="ingredient"
+                  :is-draggable="ingredient.count < 3"
+                >
                   <SelectorItem
                     :image-source="ingredient.image"
                     :title="ingredient.name"

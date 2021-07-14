@@ -148,14 +148,6 @@ export default {
     },
 
     onIngredientDrop(droppedIngredient) {
-      const droppedIngredientCount = this.pizza.ingredients.find(
-        (it) => it.name === droppedIngredient.name
-      ).count;
-
-      if (droppedIngredientCount === 3) {
-        return;
-      }
-
       this.$emit("add-ingredient", droppedIngredient);
     },
   },
