@@ -17,14 +17,17 @@
         />
 
         <BuilderIngredientsSelector
+          :ingredients.sync="pizza.ingredients"
           :sauces="pizzaData.sauces"
-          :ingredientsData="pizzaData.ingredients"
           :selected-sauce="pizza.sauce"
           @select-sauce="setPizzaSauce"
-          @change-ingredient-count="onIngredientCountChange"
         />
 
-        <BuilderPizzaView :pizza="pizza" @add-to-cart="onAddToCart" />
+        <BuilderPizzaView
+          :pizza="pizza"
+          @add-to-cart="onAddToCart"
+          @add-ingredient="addIngredient"
+        />
       </div>
     </form>
   </main>
@@ -59,7 +62,10 @@ export default {
         dough: this.pizzaData.dough[0],
         size: this.pizzaData.sizes[0],
         sauce: this.pizzaData.sauces[0],
-        ingredients: [],
+        ingredients: this.pizzaData.ingredients.map((ingredient) => ({
+          ...ingredient,
+          count: 0,
+        })),
       },
     };
   },
@@ -77,32 +83,18 @@ export default {
       this.pizza.sauce = sauce;
     },
 
-    onIngredientCountChange({ count, ingredient }) {
+    addIngredient(ingredient) {
       const ingredientItemIndex = this.pizza.ingredients.findIndex(
         (it) => it.name === ingredient.name
       );
 
-      const ingredientObject = {
-        name: ingredient.name,
-        price: ingredient.price,
-        count: count,
-      };
+      const currentIngredientCount =
+        this.pizza.ingredients[ingredientItemIndex].count;
 
-      if (ingredientItemIndex === -1 && count > 0) {
-        this.$set(
-          this.pizza.ingredients,
-          this.pizza.ingredients.length,
-          ingredientObject
-        );
-      } else if (ingredientItemIndex !== -1 && count === 0) {
-        this.$delete(this.pizza.ingredients, ingredientItemIndex);
-      } else if (ingredientItemIndex !== -1 && count > 0) {
-        this.$set(
-          this.pizza.ingredients,
-          ingredientItemIndex,
-          ingredientObject
-        );
-      }
+      this.$set(this.pizza.ingredients, ingredientItemIndex, {
+        ...ingredient,
+        count: currentIngredientCount + 1,
+      });
     },
 
     onAddToCart() {

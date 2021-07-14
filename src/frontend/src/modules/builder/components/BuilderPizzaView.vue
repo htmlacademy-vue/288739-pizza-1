@@ -11,16 +11,20 @@
     </label>
 
     <div class="content__constructor">
-      <div :class="pizzaFoundationClass" class="pizza">
-        <div class="pizza__wrapper">
-          <div
-            v-for="ingredient in pizza.ingredients"
-            :key="ingredient.name"
-            :class="getIngredientClass(ingredient)"
-            class="pizza__filling"
-          />
+      <AppDrop @drop="onIngredientDrop">
+        <div :class="pizzaFoundationClass" class="pizza">
+          <div class="pizza__wrapper">
+            <template v-for="ingredient in pizza.ingredients">
+              <div
+                v-if="ingredient.count > 0"
+                :key="ingredient.name"
+                :class="getIngredientClass(ingredient)"
+                class="pizza__filling"
+              />
+            </template>
+          </div>
         </div>
-      </div>
+      </AppDrop>
     </div>
 
     <div class="content__result">
@@ -40,12 +44,13 @@
 </template>
 
 <script>
+import AppDrop from "@/common/components/AppDrop";
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 
 export default {
   name: "BuilderPizzaView",
 
-  components: { BuilderPriceCounter },
+  components: { BuilderPriceCounter, AppDrop },
 
   props: {
     pizza: {
@@ -140,6 +145,18 @@ export default {
 
     addToCart() {
       this.$emit("add-to-cart");
+    },
+
+    onIngredientDrop(droppedIngredient) {
+      const droppedIngredientCount = this.pizza.ingredients.find(
+        (it) => it.name === droppedIngredient.name
+      ).count;
+
+      if (droppedIngredientCount === 3) {
+        return;
+      }
+
+      this.$emit("add-ingredient", droppedIngredient);
     },
   },
 };

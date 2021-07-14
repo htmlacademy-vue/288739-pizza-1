@@ -30,19 +30,21 @@
 
           <ul class="ingridients__list">
             <li
-              v-for="ingredient in ingredientsData"
+              v-for="(ingredient, index) in ingredients"
               :key="ingredient.name"
               class="ingridients__item"
             >
-              <SelectorItem
-                :image-source="ingredient.image"
-                :title="ingredient.name"
-                type="filling"
-              />
+              <AppDrop @drop="$emit('drop', $event)">
+                <AppDrag :transfer-data="ingredient">
+                  <SelectorItem
+                    :image-source="ingredient.image"
+                    :title="ingredient.name"
+                    type="filling"
+                  />
+                </AppDrag>
+              </AppDrop>
 
-              <ItemCounter
-                @count-change="onIngredientCountChange($event, ingredient)"
-              />
+              <ItemCounter :count.sync="ingredients[index].count" />
             </li>
           </ul>
         </div>
@@ -52,6 +54,8 @@
 </template>
 
 <script>
+import AppDrag from "@/common/components/AppDrag";
+import AppDrop from "@/common/components/AppDrop";
 import RadioButton from "@/common/components/RadioButton";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
@@ -59,15 +63,15 @@ import ItemCounter from "@/common/components/ItemCounter";
 export default {
   name: "BuilderIngredientsSelector",
 
-  components: { RadioButton, SelectorItem, ItemCounter },
+  components: { RadioButton, SelectorItem, ItemCounter, AppDrag, AppDrop },
 
   props: {
-    sauces: {
+    ingredients: {
       type: Array,
       default: () => [],
     },
 
-    ingredientsData: {
+    sauces: {
       type: Array,
       default: () => [],
     },
@@ -81,10 +85,6 @@ export default {
   methods: {
     onSauceSelect(selectedItem) {
       this.$emit("select-sauce", selectedItem);
-    },
-
-    onIngredientCountChange(count, ingredient) {
-      this.$emit("change-ingredient-count", { count, ingredient });
     },
   },
 };

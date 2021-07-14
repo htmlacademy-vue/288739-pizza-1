@@ -5,6 +5,7 @@
         v-if="imageSource"
         :src="imageSource"
         :style="imageStyle"
+        draggable="false"
         class="selector-item__image"
       />
     </div>

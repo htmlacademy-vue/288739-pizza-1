@@ -33,28 +33,20 @@
 export default {
   name: "ItemCounter",
 
-  data() {
-    return {
-      count: 0,
-    };
-  },
-
-  watch: {
-    count(newCount) {
-      this.$emit("count-change", newCount);
+  props: {
+    count: {
+      type: Number,
+      default: 0,
     },
   },
 
   methods: {
     incrementCounter() {
-      this.count = this.count + 1;
+      this.$emit("update:count", this.count + 1);
     },
 
     decrementCounter() {
-      if (this.count === 0) {
-        return;
-      }
-      this.count = this.count - 1;
+      this.$emit("update:count", this.count - 1);
     },
   },
 };
