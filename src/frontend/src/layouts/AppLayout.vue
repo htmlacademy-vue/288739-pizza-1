@@ -1,20 +1,20 @@
 <template>
   <div class="app-layout">
     <AppLayoutHeader :pizza="pizza" />
-    <IndexHome :pizzaData="pizzaData" @add-to-cart="onAddPizzaToCart" />
+    <Index :pizza-data="pizzaData" @add-to-cart="onAddPizzaToCart" />
   </div>
 </template>
 
 <script>
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
-import IndexHome from "@/views/IndexHome";
+import Index from "@/views/Index";
 
 export default {
   name: "AppLayout",
 
   components: {
     AppLayoutHeader,
-    IndexHome,
+    Index,
   },
 
   props: {

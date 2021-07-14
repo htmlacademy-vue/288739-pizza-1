@@ -40,7 +40,7 @@ import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngr
 import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 
 export default {
-  name: "IndexHome",
+  name: "Index",
 
   components: {
     BuilderDoughSelector,
