@@ -1,5 +1,5 @@
 <template>
-  <div class="counter counter--orange ingridients__counter">
+  <div class="counter counter--orange ingredients__counter">
     <button
       :disabled="count === 0"
       :class="{ 'counter__button--disabled': count === 0 }"

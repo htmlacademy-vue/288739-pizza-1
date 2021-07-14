@@ -1,10 +1,10 @@
 <template>
-  <div class="content__ingridients">
+  <div class="content__ingredients">
     <div class="sheet">
       <h2 class="title title--small sheet__title">Выберите ингридиенты</h2>
 
-      <div class="sheet__content ingridients">
-        <div class="ingridients__sauce sauce">
+      <div class="sheet__content ingredients">
+        <div class="ingredients__sauce sauce">
           <p>Основной соус:</p>
 
           <div
@@ -25,14 +25,14 @@
           </div>
         </div>
 
-        <div class="ingridients__filling">
+        <div class="ingredients__filling">
           <p>Начинка:</p>
 
-          <ul class="ingridients__list">
+          <ul class="ingredients__list">
             <li
               v-for="(ingredient, index) in ingredients"
               :key="ingredient.name"
-              class="ingridients__item"
+              class="ingredients__item"
             >
               <AppDrop @drop="$emit('drop', $event)">
                 <AppDrag
@@ -96,7 +96,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/mixins/mixins.scss";
 
-.content__ingridients {
+.content__ingredients {
   width: 527px;
   margin-top: 15px;
   margin-right: auto;
@@ -110,12 +110,12 @@ export default {
   margin-bottom: 10px;
 }
 
-.ingridients__counter {
+.ingredients__counter {
   width: 54px;
   margin-left: 36px;
 }
 
-.ingridients__sauce {
+.ingredients__sauce {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -132,12 +132,12 @@ export default {
   }
 }
 
-.ingridients__input {
+.ingredients__input {
   margin-right: 24px;
   margin-bottom: 10px;
 }
 
-.ingridients__filling {
+.ingredients__filling {
   width: 100%;
 
   p {
@@ -148,7 +148,7 @@ export default {
   }
 }
 
-.ingridients__list {
+.ingredients__list {
   @include clear-list;
 
   display: flex;
@@ -156,7 +156,7 @@ export default {
   flex-wrap: wrap;
 }
 
-.ingridients__item {
+.ingredients__item {
   width: 100px;
   min-height: 40px;
   margin-right: 17px;
