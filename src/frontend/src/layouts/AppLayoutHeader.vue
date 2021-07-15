@@ -1,3 +1,38 @@
+<template>
+  <header class="header">
+    <div class="header__logo">
+      <a href="index.html" class="logo">
+        <img
+          src="@/assets/img/logo.svg"
+          alt="V!U!E! Pizza logo"
+          width="90"
+          height="40"
+        />
+      </a>
+    </div>
+    <div class="header__cart">
+      <a href="cart.html">{{ pizzaPrice }} ₽</a>
+    </div>
+    <div class="header__user">
+      <a href="/login" class="header__login"><span>Войти</span></a>
+    </div>
+  </header>
+</template>
+
+<script>
+export default {
+  name: "AppLayoutHeader",
+
+  props: {
+    pizzaPrice: {
+      type: Number,
+      required: true,
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
 .header {
   position: relative;
   z-index: 2;
@@ -126,3 +161,15 @@
     vertical-align: middle;
   }
 }
+
+.logo {
+  display: block;
+
+  img {
+    display: block;
+
+    width: 90px;
+    height: 40px;
+  }
+}
+</style>
