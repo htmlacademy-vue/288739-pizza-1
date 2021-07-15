@@ -34,18 +34,16 @@
               :key="ingredient.name"
               class="ingredients__item"
             >
-              <AppDrop @drop="$emit('drop', $event)">
-                <AppDrag
-                  :transfer-data="ingredient"
-                  :is-draggable="ingredient.count < 3"
-                >
-                  <SelectorItem
-                    :image-source="ingredient.image"
-                    :title="ingredient.name"
-                    type="filling"
-                  />
-                </AppDrag>
-              </AppDrop>
+              <AppDrag
+                :transfer-data="ingredient"
+                :is-draggable="ingredient.count < 3"
+              >
+                <SelectorItem
+                  :image-source="ingredient.image"
+                  :title="ingredient.name"
+                  type="filling"
+                />
+              </AppDrag>
 
               <ItemCounter
                 :count="ingredient.count"
@@ -61,7 +59,6 @@
 
 <script>
 import AppDrag from "@/common/components/AppDrag";
-import AppDrop from "@/common/components/AppDrop";
 import RadioButton from "@/common/components/RadioButton";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
@@ -69,7 +66,7 @@ import ItemCounter from "@/common/components/ItemCounter";
 export default {
   name: "BuilderIngredientsSelector",
 
-  components: { RadioButton, SelectorItem, ItemCounter, AppDrag, AppDrop },
+  components: { RadioButton, SelectorItem, ItemCounter, AppDrag },
 
   props: {
     ingredients: {
