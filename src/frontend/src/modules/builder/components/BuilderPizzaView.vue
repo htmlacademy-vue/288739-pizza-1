@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { FILLINGS, DOUGHS, SAUCES } from "@/common/constants";
+
 import AppDrop from "@/common/components/AppDrop";
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 
@@ -62,24 +64,6 @@ export default {
   data() {
     return {
       pizzaName: "",
-
-      fillingMap: {
-        Грибы: "mushrooms",
-        Чеддер: "cheddar",
-        Салями: "salami",
-        Ветчина: "ham",
-        Ананас: "ananas",
-        Бекон: "bacon",
-        Лук: "onion",
-        Чили: "chile",
-        Халапеньо: "jalapeno",
-        Маслины: "olives",
-        Томаты: "tomatoes",
-        Лосось: "salmon",
-        Моцарелла: "mozzarella",
-        Пармезан: "parmesan",
-        "Блю чиз": "blue_cheese",
-      },
     };
   },
 
@@ -89,24 +73,10 @@ export default {
     },
 
     pizzaFoundationClass() {
-      if (
-        this.pizza.dough.name === "Тонкое" &&
-        this.pizza.sauce.name === "Томатный"
-      ) {
-        return "pizza--foundation--small-tomato";
-      } else if (
-        this.pizza.dough.name === "Тонкое" &&
-        this.pizza.sauce.name === "Сливочный"
-      ) {
-        return "pizza--foundation--small-creamy";
-      } else if (
-        this.pizza.dough.name === "Толстое" &&
-        this.pizza.sauce.name === "Томатный"
-      ) {
-        return "pizza--foundation--big-tomato";
-      } else {
-        return "pizza--foundation--big-creamy";
-      }
+      const dough = DOUGHS.find((it) => it.name === this.pizza.dough.name);
+      const sauce = SAUCES.find((it) => it.name === this.pizza.sauce.name);
+
+      return `pizza--foundation--${dough.size}-${sauce.value}`;
     },
 
     ingredientsTotalPrice() {
@@ -128,7 +98,9 @@ export default {
 
   methods: {
     getIngredientClass(ingredient) {
-      const nameClass = `pizza__filling--${this.fillingMap[ingredient.name]}`;
+      const filling = FILLINGS.find((it) => it.name === ingredient.name);
+
+      const nameClass = `pizza__filling--${filling.value}`;
 
       let countClass = "";
 
