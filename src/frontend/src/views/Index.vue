@@ -17,10 +17,11 @@
         />
 
         <BuilderIngredientsSelector
-          :ingredients.sync="pizza.ingredients"
+          :ingredients="pizza.ingredients"
           :sauces="pizzaData.sauces"
           :selected-sauce="pizza.sauce"
           @select-sauce="setPizzaSauce"
+          @update-ingredient="onUpdateIngredient"
         />
 
         <BuilderPizzaView
@@ -99,6 +100,14 @@ export default {
 
     onAddToCart() {
       this.$emit("add-to-cart", this.pizza);
+    },
+
+    onUpdateIngredient(ingredient) {
+      const ingredientItemIndex = this.pizza.ingredients.findIndex(
+        (it) => it.name === ingredient.name
+      );
+
+      this.$set(this.pizza.ingredients, ingredientItemIndex, ingredient);
     },
   },
 };

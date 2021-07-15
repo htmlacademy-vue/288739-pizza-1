@@ -30,7 +30,7 @@
 
           <ul class="ingredients__list">
             <li
-              v-for="(ingredient, index) in ingredients"
+              v-for="ingredient in ingredients"
               :key="ingredient.name"
               class="ingredients__item"
             >
@@ -47,7 +47,10 @@
                 </AppDrag>
               </AppDrop>
 
-              <ItemCounter :count.sync="ingredients[index].count" />
+              <ItemCounter
+                :count="ingredient.count"
+                @update-count="onUpdateCount($event, ingredient)"
+              />
             </li>
           </ul>
         </div>
@@ -88,6 +91,10 @@ export default {
   methods: {
     onSauceSelect(selectedItem) {
       this.$emit("select-sauce", selectedItem);
+    },
+
+    onUpdateCount(count, ingredient) {
+      this.$emit("update-ingredient", { ...ingredient, count });
     },
   },
 };

@@ -10,10 +10,10 @@
       <span class="visually-hidden">Меньше</span>
     </button>
     <input
+      :value="count"
       type="text"
       name="counter"
       class="counter__input"
-      v-model="count"
       min="0"
       max="3"
     />
@@ -42,11 +42,11 @@ export default {
 
   methods: {
     incrementCounter() {
-      this.$emit("update:count", this.count + 1);
+      this.$emit("update-count", this.count + 1);
     },
 
     decrementCounter() {
-      this.$emit("update:count", this.count - 1);
+      this.$emit("update-count", this.count - 1);
     },
   },
 };
