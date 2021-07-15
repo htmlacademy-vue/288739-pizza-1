@@ -144,7 +144,7 @@ export default {
     },
 
     addToCart() {
-      this.$emit("add-to-cart");
+      this.$emit("add-to-cart", this.pizzaPrice);
     },
 
     onIngredientDrop(droppedIngredient) {

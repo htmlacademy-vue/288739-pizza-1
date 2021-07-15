@@ -24,35 +24,9 @@ export default {
   name: "AppLayoutHeader",
 
   props: {
-    pizza: {
-      type: Object,
-      required: false,
-    },
-  },
-
-  computed: {
-    ingredientsTotalPrice() {
-      if (!this.pizza) {
-        return 0;
-      }
-
-      return this.pizza.ingredients.reduce(
-        (acc, ingredient) => acc + ingredient.price * ingredient.count,
-        0
-      );
-    },
-
-    pizzaPrice() {
-      if (!this.pizza) {
-        return 0;
-      }
-
-      return (
-        (this.pizza.dough.price +
-          this.pizza.sauce.price +
-          this.ingredientsTotalPrice) *
-        this.pizza.size.multiplier
-      );
+    pizzaPrice: {
+      type: Number,
+      required: true,
     },
   },
 };

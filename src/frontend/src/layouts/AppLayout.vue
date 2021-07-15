@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout">
-    <AppLayoutHeader :pizza="pizza" />
+    <AppLayoutHeader :pizza-price="pizzaPrice" />
     <Index :pizza-data="pizzaData" @add-to-cart="onAddPizzaToCart" />
   </div>
 </template>
@@ -36,13 +36,13 @@ export default {
 
   data() {
     return {
-      pizza: null,
+      pizzaPrice: 0,
     };
   },
 
   methods: {
-    onAddPizzaToCart(pizza) {
-      this.pizza = pizza;
+    onAddPizzaToCart(pizzaPrice) {
+      this.pizzaPrice = pizzaPrice;
     },
   },
 };

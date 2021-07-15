@@ -98,8 +98,8 @@ export default {
       });
     },
 
-    onAddToCart() {
-      this.$emit("add-to-cart", this.pizza);
+    onAddToCart(pizzaPrice) {
+      this.$emit("add-to-cart", pizzaPrice);
     },
 
     onUpdateIngredient(ingredient) {
