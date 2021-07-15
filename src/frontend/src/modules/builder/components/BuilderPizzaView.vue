@@ -17,9 +17,21 @@
             <template v-for="ingredient in pizza.ingredients">
               <div
                 v-if="ingredient.count > 0"
-                :key="ingredient.name"
-                :class="getIngredientClass(ingredient)"
+                :key="`${ingredient.name}-1`"
+                :class="getFillingClass(ingredient)"
                 class="pizza__filling"
+              />
+              <div
+                v-if="ingredient.count > 1"
+                :key="`${ingredient.name}-2`"
+                :class="getFillingClass(ingredient)"
+                class="pizza__filling pizza__filling--second"
+              />
+              <div
+                v-if="ingredient.count > 2"
+                :key="`${ingredient.name}-3`"
+                :class="getFillingClass(ingredient)"
+                class="pizza__filling pizza__filling--third"
               />
             </template>
           </div>
@@ -97,22 +109,9 @@ export default {
   },
 
   methods: {
-    getIngredientClass(ingredient) {
+    getFillingClass(ingredient) {
       const filling = FILLINGS.find((it) => it.name === ingredient.name);
-
-      const nameClass = `pizza__filling--${filling.value}`;
-
-      let countClass = "";
-
-      if (ingredient.count === 2) {
-        countClass = "pizza__filling--second";
-      } else if (ingredient.count === 3) {
-        countClass = "pizza__filling--third";
-      } else {
-        countClass = "";
-      }
-
-      return [nameClass, countClass];
+      return `pizza__filling--${filling.value}`;
     },
 
     addToCart() {
