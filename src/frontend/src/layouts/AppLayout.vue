@@ -1,28 +1,18 @@
 <template>
   <div class="app-layout">
-    <component
-      :is="layout"
-      :pizza-data="pizzaData"
-      :pizza-price="pizzaPrice"
-      @add-to-cart="$emit('add-to-cart', $event)"
-    >
+    <component :is="layout" :pizza-price="pizzaPrice">
       <slot />
     </component>
   </div>
 </template>
 
 <script>
-const defaultLayout = "AppLayoutDefault";
+const defaultLayout = "AppLayoutMain";
 
 export default {
   name: "AppLayout",
 
   props: {
-    pizzaData: {
-      type: Object,
-      required: true,
-    },
-
     pizzaPrice: {
       type: Number,
       default: 0,

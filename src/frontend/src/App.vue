@@ -1,11 +1,7 @@
 <template>
   <div id="app">
-    <AppLayout
-      :pizza-data="pizza"
-      :pizza-price="pizzaPrice"
-      @add-to-cart="onAddPizzaToCart"
-    >
-      <router-view />
+    <AppLayout :pizza-price="pizzaPrice">
+      <router-view :pizza-data="pizza" @add-to-cart="onAddPizzaToCart" />
     </AppLayout>
   </div>
 </template>

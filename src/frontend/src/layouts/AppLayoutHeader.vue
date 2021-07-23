@@ -14,7 +14,9 @@
       <a href="cart.html">{{ pizzaPrice }} ₽</a>
     </div>
     <div class="header__user">
-      <a href="/login" class="header__login"><span>Войти</span></a>
+      <router-link to="/login" class="header__login">
+        <span>Войти</span>
+      </router-link>
     </div>
   </header>
 </template>
