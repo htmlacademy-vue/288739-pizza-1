@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <AppLayout :miscData="misc" :pizzaData="pizza" :userData="user" />
+    <AppLayout
+      :pizza-data="pizza"
+      :pizza-price="pizzaPrice"
+      @add-to-cart="onAddPizzaToCart"
+    >
+      <router-view />
+    </AppLayout>
   </div>
 </template>
 
@@ -23,7 +29,14 @@ export default {
       misc,
       pizza,
       user,
+      pizzaPrice: 0,
     };
+  },
+
+  methods: {
+    onAddPizzaToCart(pizzaPrice) {
+      this.pizzaPrice = pizzaPrice;
+    },
   },
 };
 </script>
