@@ -4,74 +4,41 @@
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
       <div class="sheet__content dough">
-        <div
-          class="dough__item"
-          v-for="(dough, index) in dough"
-          :key="dough.name"
+        <RadioButton
+          v-for="dough in doughList"
+          :key="dough.id"
+          :value="dough.value"
+          :is-checked="dough.value === pizzaDough"
+          :class="`dough__input--${dough.value}`"
+          class="dough__input"
+          name="dough"
+          @change="setPizzaDough"
         >
-          <RadioButton
-            :id="`dough-input${index}`"
-            :is-checked="dough.name === selectedItem.name"
-            :value="dough.name === 'Тонкое' ? 'light' : 'large'"
-            name="dough"
-            @select="onSelect(dough)"
-          />
-
-          <SelectorItem
-            :image-source="dough.image"
-            :title="dough.name"
-            :description="dough.description"
-          />
-        </div>
+          <b>{{ dough.name }}</b>
+          <span>{{ dough.description }}</span>
+        </RadioButton>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+import { SET_PIZZA_DOUGH } from "@/store/mutations-types";
+
 import RadioButton from "@/common/components/RadioButton";
-import SelectorItem from "@/common/components/SelectorItem";
 
 export default {
   name: "BuilderDoughSelector",
 
-  components: { RadioButton, SelectorItem },
+  components: { RadioButton },
 
-  props: {
-    dough: {
-      type: Array,
-      default: () => [],
-    },
-
-    selectedItem: {
-      type: Object,
-      required: true,
-    },
+  computed: {
+    ...mapState("Builder", ["doughList", "pizzaDough"]),
   },
 
   methods: {
-    onSelect(selectedItem) {
-      this.$emit("select-dough", selectedItem);
-    },
+    ...mapMutations("Builder", { setPizzaDough: SET_PIZZA_DOUGH }),
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.content__dough {
-  width: 527px;
-  margin-top: 15px;
-  margin-right: auto;
-  margin-bottom: 15px;
-}
-
-.dough {
-  padding-bottom: 16px;
-}
-
-.dough__item {
-  display: flex;
-  flex-grow: 1;
-  position: relative;
-}
-</style>

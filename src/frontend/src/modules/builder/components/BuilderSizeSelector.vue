@@ -4,87 +4,40 @@
       <h2 class="title title--small sheet__title">Выберите размер</h2>
 
       <div class="sheet__content diameter">
-        <div
-          class="diameter__item"
-          v-for="(size, index) in sizes"
-          :key="size.name"
+        <RadioButton
+          v-for="size in sizeList"
+          :key="size.id"
+          :value="size.value"
+          :is-checked="size.value === pizzaSize"
+          :class="`diameter__input--${size.value}`"
+          class="diameter__input"
+          name="diameter"
+          @change="setPizzaSize"
         >
-          <RadioButton
-            :id="`diameter-input${index}`"
-            :is-checked="size.name === selectedItem.name"
-            :value="getSizeValue(size.name)"
-            name="diameter"
-            @select="onSelect(size)"
-          />
-
-          <SelectorItem
-            :image-source="size.image"
-            :image-style="{ 'max-width': `${33 * size.multiplier}%` }"
-            :image-wrapper-style="{ 'background-color': '#e1ffd7' }"
-            :title="size.name"
-          />
-        </div>
+          <span>{{ size.name }}</span>
+        </RadioButton>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+import { SET_PIZZA_SIZE } from "@/store/mutations-types";
+
 import RadioButton from "@/common/components/RadioButton";
-import SelectorItem from "@/common/components/SelectorItem";
 
 export default {
   name: "BuilderSizeSelector",
 
-  components: { RadioButton, SelectorItem },
+  components: { RadioButton },
 
-  props: {
-    sizes: {
-      type: Array,
-      default: () => [],
-    },
-
-    selectedItem: {
-      type: Object,
-      required: true,
-    },
+  computed: {
+    ...mapState("Builder", ["sizeList", "pizzaSize"]),
   },
 
   methods: {
-    getSizeValue(size) {
-      switch (size) {
-        case "23 см":
-          return "small";
-        case "32 см":
-          return "normal";
-        case "45 см":
-          return "big";
-        default:
-          return "small";
-      }
-    },
-
-    onSelect(selectedItem) {
-      this.$emit("select-size", selectedItem);
-    },
+    ...mapMutations("Builder", { setPizzaSize: SET_PIZZA_SIZE }),
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.content__diameter {
-  width: 373px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.diameter {
-  padding-bottom: 16px;
-}
-
-.diameter__item {
-  display: flex;
-  flex-grow: 1;
-  position: relative;
-}
-</style>

@@ -10,10 +10,6 @@ import Login from "@/views/Login";
 export default {
   name: "AppLayoutLogin",
 
-  components: {
-    Login,
-  },
+  components: { Login },
 };
 </script>
-
-<style lang="scss" scoped></style>

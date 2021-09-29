@@ -7,22 +7,17 @@
         <div class="ingredients__sauce sauce">
           <p>Основной соус:</p>
 
-          <div
-            class="sauce__item"
-            v-for="(sauce, index) in sauces"
-            :key="sauce.name"
+          <RadioButton
+            v-for="sauce in sauceList"
+            :key="sauce.id"
+            :value="sauce.value"
+            :is-checked="sauce.value === pizzaSauce"
+            class="radio ingredients__input"
+            name="sauce"
+            @change="setPizzaSauce"
           >
-            <RadioButton
-              :id="`sauce-input${index}`"
-              :is-checked="sauce.name === selectedSauce.name"
-              :value="sauce.name === 'Томатный' ? 'tomato' : 'creamy'"
-              name="sauce"
-              size="small"
-              @select="onSauceSelect(sauce)"
-            />
-
-            <SelectorItem :title="sauce.name" type="small" />
-          </div>
+            <span>{{ sauce.name }}</span>
+          </RadioButton>
         </div>
 
         <div class="ingredients__filling">
@@ -31,23 +26,29 @@
           <ul class="ingredients__list">
             <li
               v-for="ingredient in ingredients"
-              :key="ingredient.name"
+              :key="ingredient.id"
               class="ingredients__item"
             >
               <AppDrag
                 :transfer-data="ingredient"
                 :is-draggable="ingredient.count < 3"
               >
-                <SelectorItem
-                  :image-source="ingredient.image"
-                  :title="ingredient.name"
-                  type="filling"
-                />
+                <SelectorItem :value="ingredient.value">
+                  {{ ingredient.name }}
+                </SelectorItem>
               </AppDrag>
 
               <ItemCounter
-                :count="ingredient.count"
-                @update-count="onUpdateCount($event, ingredient)"
+                :value="ingredient.count"
+                :min="0"
+                :max="3"
+                class="ingredients__counter"
+                @input="
+                  changeIngredientCount({
+                    value: ingredient.value,
+                    count: $event,
+                  })
+                "
               />
             </li>
           </ul>
@@ -58,6 +59,12 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+import {
+  CHANGE_INGREDIENT_COUNT,
+  SET_PIZZA_SAUCE,
+} from "@/store/mutations-types";
+
 import AppDrag from "@/common/components/AppDrag";
 import RadioButton from "@/common/components/RadioButton";
 import SelectorItem from "@/common/components/SelectorItem";
@@ -68,103 +75,15 @@ export default {
 
   components: { RadioButton, SelectorItem, ItemCounter, AppDrag },
 
-  props: {
-    ingredients: {
-      type: Array,
-      default: () => [],
-    },
-
-    sauces: {
-      type: Array,
-      default: () => [],
-    },
-
-    selectedSauce: {
-      type: Object,
-      required: true,
-    },
+  computed: {
+    ...mapState("Builder", ["sauceList", "pizzaSauce", "ingredients"]),
   },
 
   methods: {
-    onSauceSelect(selectedItem) {
-      this.$emit("select-sauce", selectedItem);
-    },
-
-    onUpdateCount(count, ingredient) {
-      this.$emit("update-ingredient", { ...ingredient, count });
-    },
+    ...mapMutations("Builder", {
+      setPizzaSauce: SET_PIZZA_SAUCE,
+      changeIngredientCount: CHANGE_INGREDIENT_COUNT,
+    }),
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import "@/assets/scss/mixins/mixins.scss";
-
-.content__ingredients {
-  width: 527px;
-  margin-top: 15px;
-  margin-right: auto;
-  margin-bottom: 15px;
-}
-
-.sauce__item {
-  display: flex;
-  position: relative;
-  margin-right: 24px;
-  margin-bottom: 10px;
-}
-
-.ingredients__counter {
-  width: 54px;
-  margin-left: 36px;
-}
-
-.ingredients__sauce {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-
-  width: 100%;
-  margin-bottom: 14px;
-
-  p {
-    @include r-s16-h19;
-
-    margin-top: 0;
-    margin-right: 16px;
-    margin-bottom: 10px;
-  }
-}
-
-.ingredients__input {
-  margin-right: 24px;
-  margin-bottom: 10px;
-}
-
-.ingredients__filling {
-  width: 100%;
-
-  p {
-    @include r-s16-h19;
-
-    margin-top: 0;
-    margin-bottom: 16px;
-  }
-}
-
-.ingredients__list {
-  @include clear-list;
-
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.ingredients__item {
-  width: 100px;
-  min-height: 40px;
-  margin-right: 17px;
-  margin-bottom: 35px;
-  position: relative;
-}
-</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout">
-    <component :is="layout" :pizza-price="pizzaPrice">
+    <component :is="layout">
       <slot />
     </component>
   </div>
@@ -12,13 +12,6 @@ const defaultLayout = "AppLayoutMain";
 export default {
   name: "AppLayout",
 
-  props: {
-    pizzaPrice: {
-      type: Number,
-      default: 0,
-    },
-  },
-
   computed: {
     layout() {
       const layout = this.$route.meta.layout || defaultLayout;
@@ -27,5 +20,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

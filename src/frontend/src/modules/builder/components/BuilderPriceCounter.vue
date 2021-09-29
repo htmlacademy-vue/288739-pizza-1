@@ -1,18 +1,31 @@
 <template>
-  <p>Итого: {{ this.price }} ₽</p>
+  <div class="content__result">
+    <p>Итого: {{ pizzaPrice }} ₽</p>
+    <button
+      :class="{ 'button--disabled': !isPizzaOrderReady }"
+      :disabled="!isPizzaOrderReady"
+      type="button"
+      class="button"
+      @click="addToCart"
+    >
+      Готовьте!
+    </button>
+  </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+import { ADD_TO_CART } from "@/store/mutations-types";
+
 export default {
   name: "BuilderPriceCounter",
 
-  props: {
-    price: {
-      type: Number,
-      default: 0,
-    },
+  computed: {
+    ...mapGetters("Builder", ["pizzaPrice", "isPizzaOrderReady"]),
+  },
+
+  methods: {
+    ...mapActions("Cart", { addToCart: ADD_TO_CART }),
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

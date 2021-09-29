@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout-main">
-    <AppLayoutHeader :pizza-price="pizzaPrice" />
+    <AppLayoutHeader />
     <slot />
   </div>
 </template>
@@ -11,17 +11,6 @@ import AppLayoutHeader from "@/layouts/AppLayoutHeader";
 export default {
   name: "AppLayoutMain",
 
-  components: {
-    AppLayoutHeader,
-  },
-
-  props: {
-    pizzaPrice: {
-      type: Number,
-      default: 0,
-    },
-  },
+  components: { AppLayoutHeader },
 };
 </script>
-
-<style lang="scss" scoped></style>
