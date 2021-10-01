@@ -6,7 +6,7 @@
       :disabled="!isPizzaOrderReady"
       type="button"
       class="button"
-      @click="addToCart"
+      @click="addPizzaToCart"
     >
       Готовьте!
     </button>
@@ -15,7 +15,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { ADD_TO_CART } from "@/store/mutations-types";
+import { ADD_PIZZA_TO_CART } from "@/store/mutations-types";
 
 export default {
   name: "BuilderPriceCounter",
@@ -25,7 +25,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("Cart", { addToCart: ADD_TO_CART }),
+    ...mapActions("Cart", { addPizzaToCart: ADD_PIZZA_TO_CART }),
   },
 };
 </script>

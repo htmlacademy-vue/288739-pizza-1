@@ -5,6 +5,7 @@ import {
   SET_PIZZA_SAUCE,
   CHANGE_INGREDIENT_COUNT,
   RESET_BUILDER_STATE,
+  CHANGE_BUILDER_STATE,
 } from "@/store/mutations-types";
 
 import {
@@ -52,6 +53,19 @@ export default {
     [CHANGE_INGREDIENT_COUNT](state, { value, count }) {
       const ingredient = state.ingredients.find((it) => it.value === value);
       ingredient.count = count;
+    },
+
+    [CHANGE_BUILDER_STATE](state, pizza) {
+      state.pizzaName = pizza.name;
+      state.pizzaDough = pizza.dough;
+      state.pizzaSize = pizza.size;
+      state.pizzaSauce = pizza.sauce;
+      state.ingredients = state.ingredients.map((it) => {
+        const ingredient = pizza.ingredients.find(
+          (item) => item.value === it.value
+        );
+        return ingredient ? ingredient : it;
+      });
     },
 
     [RESET_BUILDER_STATE](state) {

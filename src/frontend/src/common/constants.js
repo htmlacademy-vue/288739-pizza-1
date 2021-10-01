@@ -20,10 +20,16 @@ export const SAUCE_TYPES = [
   },
 ];
 
-export const PIZZA_SIZE = {
+export const PIZZA_SIZE_TEXT = {
   1: "small",
   2: "normal",
   3: "big",
+};
+
+export const PIZZA_SIZE_NUMBER = {
+  small: 23,
+  normal: 32,
+  big: 45,
 };
 
 export const MOVE = "move";

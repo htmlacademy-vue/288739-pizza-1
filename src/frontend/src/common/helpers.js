@@ -1,4 +1,4 @@
-import { DOUGH_TYPES, SAUCE_TYPES, PIZZA_SIZE } from "@/common/constants";
+import { DOUGH_TYPES, SAUCE_TYPES, PIZZA_SIZE_TEXT } from "@/common/constants";
 
 export const normalizeDough = (dough) => ({
   ...dough,
@@ -7,7 +7,7 @@ export const normalizeDough = (dough) => ({
 
 export const normalizeSize = (size) => ({
   ...size,
-  value: PIZZA_SIZE[size.multiplier],
+  value: PIZZA_SIZE_TEXT[size.multiplier],
 });
 
 export const normalizeSauce = (sauce) => ({
