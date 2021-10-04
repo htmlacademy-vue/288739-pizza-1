@@ -41,10 +41,12 @@ export default {
 
     min: {
       type: Number,
+      default: 0,
     },
 
     max: {
       type: Number,
+      default: 3,
     },
   },
 };

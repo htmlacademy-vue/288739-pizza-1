@@ -9,7 +9,10 @@ export default {
   name: "SelectorItem",
 
   props: {
-    value: String,
+    value: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
