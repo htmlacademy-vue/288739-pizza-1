@@ -119,7 +119,6 @@ export default {
 
     changePizza() {
       this.changeBuilderState(this.pizza);
-      this.removePizzaFromCart(this.pizza);
       this.$router.push("/");
     },
   },

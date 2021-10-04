@@ -26,6 +26,8 @@ const getDefaultState = () => ({
   pizzaDough: "light",
   pizzaSize: "small",
   pizzaSauce: "tomato",
+  pizzaId: Date.now(),
+  pizzaQuantity: 1,
 });
 
 export default {
@@ -56,6 +58,8 @@ export default {
     },
 
     [CHANGE_BUILDER_STATE](state, pizza) {
+      state.pizzaId = pizza.id;
+      state.pizzaQuantity = pizza.quantity;
       state.pizzaName = pizza.name;
       state.pizzaDough = pizza.dough;
       state.pizzaSize = pizza.size;

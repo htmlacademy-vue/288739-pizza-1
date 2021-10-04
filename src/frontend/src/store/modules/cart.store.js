@@ -23,7 +23,15 @@ export default {
 
   mutations: {
     [ADD_PIZZA_TO_CART](state, pizza) {
-      state.cartPizzaList.push(pizza);
+      let cartPizzaListItem = state.cartPizzaList.find(
+        (item) => item.id === pizza.id
+      );
+
+      if (cartPizzaListItem) {
+        Object.assign(cartPizzaListItem, pizza);
+      } else {
+        state.cartPizzaList.push(pizza);
+      }
     },
 
     [REMOVE_PIZZA_FROM_CART](state, pizza) {
@@ -86,14 +94,14 @@ export default {
   actions: {
     [ADD_PIZZA_TO_CART]({ rootState, rootGetters, commit }) {
       commit(ADD_PIZZA_TO_CART, {
-        id: Date.now(),
+        id: rootState.Builder.pizzaId,
         name: rootState.Builder.pizzaName,
         dough: rootState.Builder.pizzaDough,
         size: rootState.Builder.pizzaSize,
         sauce: rootState.Builder.pizzaSauce,
         ingredients: rootGetters["Builder/selectedPizzaIngredients"],
         price: rootGetters["Builder/pizzaPrice"],
-        quantity: 1,
+        quantity: rootState.Builder.pizzaQuantity,
       });
 
       commit("Builder/RESET_BUILDER_STATE", null, { root: true });
