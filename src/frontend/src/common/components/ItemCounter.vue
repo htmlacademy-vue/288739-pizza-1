@@ -15,7 +15,6 @@
       name="counter"
       class="counter__input"
       readonly
-      @input="$emit('input', Number($event.target.value))"
     />
 
     <button
