@@ -1,78 +1,15 @@
-export const FILLINGS = [
-  {
-    name: "Грибы",
-    value: "mushrooms",
-  },
-  {
-    name: "Чеддер",
-    value: "cheddar",
-  },
-  {
-    name: "Салями",
-    value: "salami",
-  },
-  {
-    name: "Ветчина",
-    value: "ham",
-  },
-  {
-    name: "Ананас",
-    value: "ananas",
-  },
-  {
-    name: "Бекон",
-    value: "bacon",
-  },
-  {
-    name: "Лук",
-    value: "onion",
-  },
-  {
-    name: "Чили",
-    value: "chile",
-  },
-  {
-    name: "Халапеньо",
-    value: "jalapeno",
-  },
-  {
-    name: "Маслины",
-    value: "olives",
-  },
-  {
-    name: "Томаты",
-    value: "tomatoes",
-  },
-  {
-    name: "Лосось",
-    value: "salmon",
-  },
-  {
-    name: "Моцарелла",
-    value: "mozzarella",
-  },
-  {
-    name: "Пармезан",
-    value: "parmesan",
-  },
-  {
-    name: "Блю чиз",
-    value: "blue_cheese",
-  },
-];
-
-export const DOUGHS = [
+export const DOUGH_TYPES = [
   {
     name: "Тонкое",
-    size: "small",
+    value: "light",
   },
   {
     name: "Толстое",
-    size: "big",
+    value: "large",
   },
 ];
 
-export const SAUCES = [
+export const SAUCE_TYPES = [
   {
     name: "Томатный",
     value: "tomato",
@@ -82,6 +19,18 @@ export const SAUCES = [
     value: "creamy",
   },
 ];
+
+export const PIZZA_SIZE_TEXT = {
+  1: "small",
+  2: "normal",
+  3: "big",
+};
+
+export const PIZZA_SIZE_NUMBER = {
+  small: 23,
+  normal: 32,
+  big: 45,
+};
 
 export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
