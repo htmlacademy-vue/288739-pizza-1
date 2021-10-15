@@ -1,4 +1,5 @@
 import {
+  SET_ENTITY,
   ADD_PIZZA_TO_CART,
   REMOVE_PIZZA_FROM_CART,
   INCREMENT_PIZZA_QUANTITY,
@@ -8,18 +9,13 @@ import {
   RESET_CART_STATE,
 } from "@/store/mutations-types";
 
-import misc from "@/static/misc.json";
-import { normalizeMisc } from "@/common/helpers";
-
-const getDefaultState = () => ({
-  cartPizzaList: [],
-  cartAdditionalList: misc.map(normalizeMisc),
-});
-
 export default {
   namespaced: true,
 
-  state: getDefaultState(),
+  state: {
+    cartPizzaList: [],
+    cartAdditionalList: [],
+  },
 
   mutations: {
     [ADD_PIZZA_TO_CART](state, pizza) {
@@ -71,7 +67,13 @@ export default {
     },
 
     [RESET_CART_STATE](state) {
-      Object.assign(state, getDefaultState());
+      Object.assign(state, {
+        cartPizzaList: [],
+        cartAdditionalList: state.cartAdditionalList.map((it) => ({
+          ...it,
+          quantity: 0,
+        })),
+      });
     },
   },
 
@@ -92,6 +94,16 @@ export default {
   },
 
   actions: {
+    async query({ commit }) {
+      const data = await this.$api.misc.query();
+
+      commit(
+        SET_ENTITY,
+        { module: "Cart", entity: "cartAdditionalList", value: data },
+        { root: true }
+      );
+    },
+
     [ADD_PIZZA_TO_CART]({ rootState, rootGetters, commit }) {
       commit(ADD_PIZZA_TO_CART, {
         id: rootState.Builder.pizzaId,

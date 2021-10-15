@@ -1,27 +1,24 @@
-import { DOUGH_TYPES, SAUCE_TYPES, PIZZA_SIZE_TEXT } from "@/common/constants";
+import resources from "@/common/enums/resources";
+import {
+  AuthApiService,
+  DoughApiService,
+  IngredientApiService,
+  MiscApiService,
+  SauceApiService,
+  SizeApiService,
+  OrderApiService,
+  AddressApiService,
+} from "@/services/api.service";
 
-export const normalizeDough = (dough) => ({
-  ...dough,
-  value: DOUGH_TYPES.find((it) => it.name === dough.name).value,
-});
-
-export const normalizeSize = (size) => ({
-  ...size,
-  value: PIZZA_SIZE_TEXT[size.multiplier],
-});
-
-export const normalizeSauce = (sauce) => ({
-  ...sauce,
-  value: SAUCE_TYPES.find((it) => it.name === sauce.name).value,
-});
-
-export const normalizeIngredient = (ingredient) => ({
-  ...ingredient,
-  value: ingredient.image.match(/[A-Za-z-_]*\.svg$/)[0].slice(0, -4),
-  count: 0,
-});
-
-export const normalizeMisc = (misc) => ({
-  ...misc,
-  quantity: 0,
-});
+export const createResources = () => {
+  return {
+    [resources.AUTH]: new AuthApiService(),
+    [resources.ORDERS]: new OrderApiService(),
+    [resources.DOUGH]: new DoughApiService(),
+    [resources.INGREDIENTS]: new IngredientApiService(),
+    [resources.MISC]: new MiscApiService(),
+    [resources.SAUCES]: new SauceApiService(),
+    [resources.SIZES]: new SizeApiService(),
+    [resources.ADDRESSES]: new AddressApiService(),
+  };
+};

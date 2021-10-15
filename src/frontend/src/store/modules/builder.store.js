@@ -1,4 +1,5 @@
 import {
+  SET_ENTITY,
   SET_PIZZA_NAME,
   SET_PIZZA_DOUGH,
   SET_PIZZA_SIZE,
@@ -8,32 +9,21 @@ import {
   CHANGE_BUILDER_STATE,
 } from "@/store/mutations-types";
 
-import {
-  normalizeDough,
-  normalizeIngredient,
-  normalizeSauce,
-  normalizeSize,
-} from "@/common/helpers";
-
-import jsonPizza from "@/static/pizza.json";
-
-const getDefaultState = () => ({
-  ingredients: jsonPizza.ingredients.map(normalizeIngredient),
-  doughList: jsonPizza.dough.map(normalizeDough),
-  sizeList: jsonPizza.sizes.map(normalizeSize),
-  sauceList: jsonPizza.sauces.map(normalizeSauce),
-  pizzaName: "",
-  pizzaDough: "light",
-  pizzaSize: "small",
-  pizzaSauce: "tomato",
-  pizzaId: Date.now(),
-  pizzaQuantity: 1,
-});
-
 export default {
   namespaced: true,
 
-  state: getDefaultState(),
+  state: {
+    ingredients: [],
+    doughList: [],
+    sizeList: [],
+    sauceList: [],
+    pizzaName: "",
+    pizzaDough: "light",
+    pizzaSize: "small",
+    pizzaSauce: "tomato",
+    pizzaId: Date.now(),
+    pizzaQuantity: 1,
+  },
 
   mutations: {
     [SET_PIZZA_NAME](state, value) {
@@ -73,7 +63,50 @@ export default {
     },
 
     [RESET_BUILDER_STATE](state) {
-      Object.assign(state, getDefaultState());
+      Object.assign(state, {
+        ingredients: state.ingredients.map((it) => ({ ...it, count: 0 })),
+        pizzaName: "",
+        pizzaDough: "light",
+        pizzaSize: "small",
+        pizzaSauce: "tomato",
+        pizzaId: Date.now(),
+        pizzaQuantity: 1,
+      });
+    },
+  },
+
+  actions: {
+    async query({ commit }) {
+      const [dough, sauces, sizes, ingredients] = await Promise.all([
+        this.$api.dough.query(),
+        this.$api.sauces.query(),
+        this.$api.sizes.query(),
+        this.$api.ingredients.query(),
+      ]);
+
+      commit(
+        SET_ENTITY,
+        { module: "Builder", entity: "doughList", value: dough },
+        { root: true }
+      );
+
+      commit(
+        SET_ENTITY,
+        { module: "Builder", entity: "sauceList", value: sauces },
+        { root: true }
+      );
+
+      commit(
+        SET_ENTITY,
+        { module: "Builder", entity: "sizeList", value: sizes },
+        { root: true }
+      );
+
+      commit(
+        SET_ENTITY,
+        { module: "Builder", entity: "ingredients", value: ingredients },
+        { root: true }
+      );
     },
   },
 
@@ -83,9 +116,13 @@ export default {
     },
 
     pizzaPrice(state, getters) {
-      const dough = state.doughList.find((it) => it.value === state.pizzaDough);
-      const sauce = state.sauceList.find((it) => it.value === state.pizzaSauce);
-      const size = state.sizeList.find((it) => it.value === state.pizzaSize);
+      const doughPrice =
+        state.doughList.find((it) => it.value === state.pizzaDough)?.price || 0;
+      const saucePrice =
+        state.sauceList.find((it) => it.value === state.pizzaSauce)?.price || 0;
+      const sizeMultiplier =
+        state.sizeList.find((it) => it.value === state.pizzaSize)?.multiplier ||
+        1;
       const ingredientsTotalPrice = getters.selectedPizzaIngredients.reduce(
         (acc, it) => {
           acc += it.count * it.price;
@@ -94,9 +131,7 @@ export default {
         0
       );
 
-      return (
-        (dough.price + sauce.price + ingredientsTotalPrice) * size.multiplier
-      );
+      return (doughPrice + saucePrice + ingredientsTotalPrice) * sizeMultiplier;
     },
 
     isPizzaOrderReady(state, getters) {
