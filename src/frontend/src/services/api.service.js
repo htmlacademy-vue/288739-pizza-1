@@ -71,70 +71,11 @@ export class OrderApiService extends CrudApiService {
   constructor() {
     super("orders");
   }
-
-  _normalize(order) {
-    return order;
-  }
-
-  _createRequest(order) {
-    const { ...request } = order;
-    return request;
-  }
-
-  async query() {
-    const orders = await super.query();
-    return orders.map((order) => this._normalize(order));
-  }
-
-  async get(id) {
-    const { data } = await axios.get(`orders/${id}`);
-    return this._normalize(data);
-  }
-
-  async post(order) {
-    const { data: newOrder } = await axios.post(
-      "orders",
-      this._createRequest(order)
-    );
-    return this._normalize(newOrder);
-  }
 }
 
 export class AddressApiService extends CrudApiService {
   constructor() {
     super("addresses");
-  }
-
-  _normalize(address) {
-    return address;
-  }
-
-  _createRequest(address) {
-    const { ...request } = address;
-    return request;
-  }
-
-  async query() {
-    const addresses = await super.query();
-    return addresses.map((address) => this._normalize(address));
-  }
-
-  async get(id) {
-    const { data } = await axios.get(`addresses/${id}`);
-    return this._normalize(data);
-  }
-
-  async post(address) {
-    const { data: newAddress } = await axios.post(
-      "addresses",
-      this._createRequest(address)
-    );
-    return this._normalize(newAddress);
-  }
-
-  async put(address) {
-    await axios.put(`addresses/${address.id}`, this._createRequest(address));
-    return this._normalize(address);
   }
 }
 

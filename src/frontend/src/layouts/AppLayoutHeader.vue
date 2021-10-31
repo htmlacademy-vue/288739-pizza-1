@@ -14,20 +14,35 @@
       <router-link to="/cart">{{ orderPrice }} ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link to="/login" class="header__login">
+      <router-link v-if="!isAuthenticated" to="/login" class="header__login">
         <span>Войти</span>
       </router-link>
+
+      <template v-else>
+        <router-link v-if="user" to="/profile">
+          <img :src="user.avatar" :alt="user.name" width="32" height="32" />
+          <span>{{ user.name }}</span>
+        </router-link>
+
+        <a href="#" class="header__logout" @click.prevent="$logout">
+          <span>Выйти</span>
+        </a>
+      </template>
     </div>
   </header>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
+import { logout } from "@/common/mixins";
 
 export default {
   name: "AppLayoutHeader",
 
+  mixins: [logout],
+
   computed: {
+    ...mapState("Auth", ["isAuthenticated", "user"]),
     ...mapGetters("Cart", ["orderPrice"]),
   },
 };

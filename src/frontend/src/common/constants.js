@@ -34,3 +34,20 @@ export const PIZZA_SIZE_NUMBER = {
 
 export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
+
+export const RESOURCES = {
+  AUTH: "auth",
+  ADDRESSES: "addresses",
+  DOUGH: "dough",
+  INGREDIENTS: "ingredients",
+  MISC: "misc",
+  ORDERS: "orders",
+  SAUCES: "sauces",
+  SIZES: "sizes",
+};
+
+export const BUILDER_DEFAULTS = {
+  doughId: 1,
+  sizeId: 1,
+  sauceId: 1,
+};

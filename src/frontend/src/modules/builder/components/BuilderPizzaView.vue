@@ -7,15 +7,17 @@
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
-        @input="setPizzaName($event.target.value)"
+        @input="
+          setPizzaProperty({ property: 'name', value: $event.target.value })
+        "
       />
     </label>
 
     <div class="content__constructor">
       <AppDrop
         @drop="
-          changeIngredientCount({
-            value: $event.value,
+          setIngredientCount({
+            ingredient: $event,
             count: $event.count + 1,
           })
         "
@@ -52,10 +54,10 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 import {
-  CHANGE_INGREDIENT_COUNT,
-  SET_PIZZA_NAME,
+  SET_INGREDIENT_COUNT,
+  SET_PIZZA_PROPERTY,
 } from "@/store/mutations-types";
 
 import AppDrop from "@/common/components/AppDrop";
@@ -67,21 +69,26 @@ export default {
   components: { BuilderPriceCounter, AppDrop },
 
   computed: {
-    ...mapState("Builder", ["pizzaDough", "pizzaSauce", "pizzaName"]),
+    ...mapState("Builder", ["pizza"]),
 
     ...mapGetters("Builder", ["selectedPizzaIngredients"]),
 
+    pizzaName() {
+      return this.pizza?.name || "";
+    },
+
     pizzaFoundationClass() {
       return `pizza--foundation--${
-        this.pizzaDough === "light" ? "small" : "big"
-      }-${this.pizzaSauce}`;
+        this.pizza?.dough.value === "light" ? "small" : "big"
+      }-${this.pizza?.sauce.value}`;
     },
   },
 
   methods: {
-    ...mapMutations("Builder", {
-      setPizzaName: SET_PIZZA_NAME,
-      changeIngredientCount: CHANGE_INGREDIENT_COUNT,
+    ...mapMutations("Builder", { setPizzaProperty: SET_PIZZA_PROPERTY }),
+
+    ...mapActions("Builder", {
+      setIngredientCount: SET_INGREDIENT_COUNT,
     }),
   },
 };

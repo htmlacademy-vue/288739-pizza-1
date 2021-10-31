@@ -3,12 +3,7 @@ import Vuex from "vuex";
 import VuexPlugins from "@/plugins/vuexPlugins";
 import modules from "./modules";
 
-import {
-  SET_ENTITY,
-  ADD_ENTITY,
-  UPDATE_ENTITY,
-  DELETE_ENTITY,
-} from "@/store/mutations-types";
+import { UPDATE_ENTITY, DELETE_ENTITY } from "@/store/mutations-types";
 
 Vue.use(Vuex);
 
@@ -20,18 +15,6 @@ const actions = {
 };
 
 const mutations = {
-  [SET_ENTITY](state, { module, entity, value }) {
-    module ? (state[module][entity] = value) : (state[entity] = value);
-  },
-
-  [ADD_ENTITY](state, { module, entity, value }) {
-    if (module) {
-      state[module][entity] = [...state[module][entity], value];
-    } else {
-      state[entity] = [...state[entity], value];
-    }
-  },
-
   [UPDATE_ENTITY](state, { module, entity, value }) {
     if (module) {
       const index = state[module][entity].findIndex(
