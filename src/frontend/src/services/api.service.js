@@ -1,87 +1,101 @@
 import JwtService from "@/services/jwt.service";
-import axios from "@/plugins/axios";
+import axiosInstance from "@/plugins/axios";
 
 import { DOUGH_TYPES, SAUCE_TYPES, PIZZA_SIZE_TEXT } from "@/common/constants";
+class BaseApiService {
+  constructor(notifier) {
+    if (!axiosInstance.$notifier) {
+      axiosInstance.$notifier = notifier;
+    }
+  }
+}
+export class AuthApiService extends BaseApiService {
+  constructor(notifier) {
+    super(notifier);
+  }
 
-export class AuthApiService {
   setAuthHeader() {
     const token = JwtService.getToken();
-    axios.defaults.headers.common["Authorization"] = token
+    axiosInstance.defaults.headers.common["Authorization"] = token
       ? `Bearer ${token}`
       : "";
   }
 
   async login(params) {
-    const { data } = await axios.post("login", params);
+    const { data } = await axiosInstance.post("login", params);
     return data;
   }
 
   async logout() {
-    const { data } = await axios.delete("logout");
+    const { data } = await axiosInstance.delete("logout");
     return data;
   }
 
   async getMe() {
-    const { data } = await axios.get("whoAmI");
+    const { data } = await axiosInstance.get("whoAmI");
     return data;
   }
 }
 
-export class ReadOnlyApiService {
+export class ReadOnlyApiService extends BaseApiService {
   #resource;
-  constructor(resource) {
+  constructor(resource, notifier) {
+    super(notifier);
     this.#resource = resource;
   }
 
   async query() {
-    const { data } = await axios.get(this.#resource);
+    const { data } = await axiosInstance.get(this.#resource);
     return data;
   }
 
   async get(id) {
-    const { data } = await axios.get(`${this.#resource}/${id}`);
+    const { data } = await axiosInstance.get(`${this.#resource}/${id}`);
     return data;
   }
 }
 
 export class CrudApiService extends ReadOnlyApiService {
   #resource;
-  constructor(resource) {
-    super(resource);
+  constructor(resource, notifier) {
+    super(resource, notifier);
     this.#resource = resource;
   }
 
   async post(entity) {
-    const { data } = await axios.post(this.#resource, entity);
+    const { data } = await axiosInstance.post(this.#resource, entity);
     return data;
   }
 
   async put(entity) {
-    const { data } = await axios.put(`${this.#resource}/${entity.id}`, entity);
+    const { data } = await axiosInstance.put(
+      `${this.#resource}/${entity.id}`,
+      entity
+    );
     return data;
   }
 
   async delete(id) {
-    const { data } = await axios.delete(`${this.#resource}/${id}`);
+    const { data } = await axiosInstance.delete(`${this.#resource}/${id}`);
     return data;
   }
 }
 
 export class OrderApiService extends CrudApiService {
-  constructor() {
-    super("orders");
+  constructor(notifier) {
+    super("orders", notifier);
   }
 }
 
 export class AddressApiService extends CrudApiService {
-  constructor() {
-    super("addresses");
+  constructor(notifier) {
+    super("addresses", notifier);
   }
 }
 
 export class DoughApiService extends ReadOnlyApiService {
-  constructor() {
-    super("dough");
+  constructor(notifier) {
+    super("dough", notifier);
   }
 
   _normalize(dough) {
@@ -98,8 +112,8 @@ export class DoughApiService extends ReadOnlyApiService {
 }
 
 export class SauceApiService extends ReadOnlyApiService {
-  constructor() {
-    super("sauces");
+  constructor(notifier) {
+    super("sauces", notifier);
   }
 
   _normalize(sauce) {
@@ -116,8 +130,8 @@ export class SauceApiService extends ReadOnlyApiService {
 }
 
 export class SizeApiService extends ReadOnlyApiService {
-  constructor() {
-    super("sizes");
+  constructor(notifier) {
+    super("sizes", notifier);
   }
 
   _normalize(size) {
@@ -134,8 +148,8 @@ export class SizeApiService extends ReadOnlyApiService {
 }
 
 export class IngredientApiService extends ReadOnlyApiService {
-  constructor() {
-    super("ingredients");
+  constructor(notifier) {
+    super("ingredients", notifier);
   }
 
   _normalize(ingredient) {
@@ -153,8 +167,8 @@ export class IngredientApiService extends ReadOnlyApiService {
 }
 
 export class MiscApiService extends ReadOnlyApiService {
-  constructor() {
-    super("misc");
+  constructor(notifier) {
+    super("misc", notifier);
   }
 
   _normalize(misc) {

@@ -10,15 +10,15 @@ import {
   AddressApiService,
 } from "@/services/api.service";
 
-export const createResources = () => ({
-  [RESOURCES.AUTH]: new AuthApiService(),
-  [RESOURCES.ORDERS]: new OrderApiService(),
-  [RESOURCES.DOUGH]: new DoughApiService(),
-  [RESOURCES.INGREDIENTS]: new IngredientApiService(),
-  [RESOURCES.MISC]: new MiscApiService(),
-  [RESOURCES.SAUCES]: new SauceApiService(),
-  [RESOURCES.SIZES]: new SizeApiService(),
-  [RESOURCES.ADDRESSES]: new AddressApiService(),
+export const createResources = (notifier) => ({
+  [RESOURCES.AUTH]: new AuthApiService(notifier),
+  [RESOURCES.ORDERS]: new OrderApiService(notifier),
+  [RESOURCES.DOUGH]: new DoughApiService(notifier),
+  [RESOURCES.INGREDIENTS]: new IngredientApiService(notifier),
+  [RESOURCES.MISC]: new MiscApiService(notifier),
+  [RESOURCES.SAUCES]: new SauceApiService(notifier),
+  [RESOURCES.SIZES]: new SizeApiService(notifier),
+  [RESOURCES.ADDRESSES]: new AddressApiService(notifier),
 });
 
 export const setAuth = (store) => {

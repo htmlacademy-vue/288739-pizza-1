@@ -46,6 +46,15 @@ export const RESOURCES = {
   SIZES: "sizes",
 };
 
+export const NOTIFICATION_TYPES = {
+  INFO: "info",
+  SUCCESS: "success",
+  WARNING: "warning",
+  ERROR: "error",
+};
+
+export const NOTIFICATION_LIVE_TIME = 3000;
+
 export const BUILDER_DEFAULTS = {
   doughId: 1,
   sizeId: 1,
