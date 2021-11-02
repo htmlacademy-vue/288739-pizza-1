@@ -42,46 +42,5 @@ export default {
         { root: true }
       );
     },
-
-    async post({ rootState }) {
-      const userId = rootState.Auth.user?.id ?? null;
-
-      const pizzaList = rootState.Cart.pizzaList.map((pizza) => ({
-        name: pizza.name,
-        sauceId: pizza.sauce.id,
-        doughId: pizza.dough.id,
-        sizeId: pizza.size.id,
-        quantity: pizza.quantity,
-        ingredients: pizza.ingredients.map((it) => ({
-          ingredientId: it.id,
-          quantity: it.count,
-        })),
-      }));
-
-      const additionalList = rootState.Cart.additionalList
-        .filter((it) => it.quantity > 0)
-        .map((it) => ({
-          miscId: it.id,
-          quantity: it.quantity,
-        }));
-
-      const cartAddress = rootState.Cart.address;
-
-      let address = null;
-
-      if (cartAddress) {
-        address = cartAddress.id ? { id: cartAddress.id } : cartAddress;
-      }
-
-      const order = {
-        userId,
-        phone: rootState.Cart.phone,
-        pizzas: pizzaList,
-        misc: additionalList,
-        address,
-      };
-
-      await this.$api.orders.post(order);
-    },
   },
 };

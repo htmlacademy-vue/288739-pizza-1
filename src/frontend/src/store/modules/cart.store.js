@@ -99,6 +99,47 @@ export default {
       commit(SET_ADDITIONAL_LIST, data);
     },
 
+    async submitOrder({ state, rootState }) {
+      const userId = rootState.Auth.user?.id ?? null;
+
+      const pizzaList = state.pizzaList.map((pizza) => ({
+        name: pizza.name,
+        sauceId: pizza.sauce.id,
+        doughId: pizza.dough.id,
+        sizeId: pizza.size.id,
+        quantity: pizza.quantity,
+        ingredients: pizza.ingredients.map((it) => ({
+          ingredientId: it.id,
+          quantity: it.count,
+        })),
+      }));
+
+      const additionalList = state.additionalList
+        .filter((it) => it.quantity > 0)
+        .map((it) => ({
+          miscId: it.id,
+          quantity: it.quantity,
+        }));
+
+      const cartAddress = state.address;
+
+      let address = null;
+
+      if (cartAddress) {
+        address = cartAddress.id ? { id: cartAddress.id } : cartAddress;
+      }
+
+      const order = {
+        userId,
+        phone: state.phone,
+        pizzas: pizzaList,
+        misc: additionalList,
+        address,
+      };
+
+      await this.$api.orders.post(order);
+    },
+
     [ADD_PIZZA_TO_CART]({ rootState, rootGetters, commit, dispatch }) {
       const builderPizza = rootState.Builder.pizza;
 

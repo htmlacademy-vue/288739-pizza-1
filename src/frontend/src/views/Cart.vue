@@ -68,7 +68,7 @@ export default {
 
   methods: {
     ...mapActions("Addresses", { getAddresses: "query" }),
-    ...mapActions("Orders", { submitOrder: "post" }),
+    ...mapActions("Cart", ["submitOrder"]),
     ...mapMutations("Cart", { resetCartState: RESET_CART_STATE }),
 
     onModalClose() {
