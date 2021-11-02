@@ -1,9 +1,9 @@
 <template>
   <ul class="cart-list sheet">
     <CartPizzaListItem
-      v-for="cartPizzaListItem in cartPizzaList"
-      :key="cartPizzaListItem.id"
-      :pizza="cartPizzaListItem"
+      v-for="pizza in pizzaList"
+      :key="pizza.id"
+      :pizza="pizza"
     />
   </ul>
 </template>
@@ -19,7 +19,7 @@ export default {
   components: { CartPizzaListItem },
 
   computed: {
-    ...mapState("Cart", ["cartPizzaList"]),
+    ...mapState("Cart", ["pizzaList"]),
   },
 };
 </script>

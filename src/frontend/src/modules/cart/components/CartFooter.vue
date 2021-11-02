@@ -15,43 +15,19 @@
     </div>
 
     <div class="footer__submit">
-      <button type="submit" class="button" @click.prevent="onOrderSubmit">
-        Оформить заказ
-      </button>
+      <button type="submit" class="button">Оформить заказ</button>
     </div>
-
-    <CartModal v-if="isModalShown" @close="onModalClose" />
   </section>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 
-import CartModal from "@/modules/cart/components/CartModal";
-
 export default {
   name: "CartFooter",
 
-  components: { CartModal },
-
-  data() {
-    return {
-      isModalShown: false,
-    };
-  },
-
   computed: {
     ...mapGetters("Cart", ["orderPrice"]),
-  },
-
-  methods: {
-    onOrderSubmit() {
-      this.isModalShown = true;
-    },
-
-    onModalClose() {
-      this.isModalShown = false;
-    },
   },
 };
 </script>

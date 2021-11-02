@@ -1,68 +1,71 @@
 import {
+  DELETE_ENTITY,
+  UPDATE_ENTITY,
+  SET_ADDITIONAL_LIST,
   ADD_PIZZA_TO_CART,
-  REMOVE_PIZZA_FROM_CART,
   INCREMENT_PIZZA_QUANTITY,
   DECREMENT_PIZZA_QUANTITY,
   INCREMENT_ADDITIONAL_QUANTITY,
   DECREMENT_ADDITIONAL_QUANTITY,
   RESET_CART_STATE,
+  SET_ADDRESS_PROPERTY,
+  SET_ADDRESS,
+  SET_PHONE,
+  REPEAT_ORDER,
 } from "@/store/mutations-types";
 
-import misc from "@/static/misc.json";
-import { normalizeMisc } from "@/common/helpers";
-
-const getDefaultState = () => ({
-  cartPizzaList: [],
-  cartAdditionalList: misc.map(normalizeMisc),
-});
+const module = "Cart";
 
 export default {
   namespaced: true,
 
-  state: getDefaultState(),
+  state: {
+    pizzaList: [],
+    additionalList: [],
+    address: null,
+    phone: "",
+  },
 
   mutations: {
     [ADD_PIZZA_TO_CART](state, pizza) {
-      let cartPizzaListItem = state.cartPizzaList.find(
-        (item) => item.id === pizza.id
-      );
+      let pizzaListItem = state.pizzaList.find((item) => item.id === pizza.id);
 
-      if (cartPizzaListItem) {
-        Object.assign(cartPizzaListItem, pizza);
+      if (pizzaListItem) {
+        Object.assign(pizzaListItem, pizza);
       } else {
-        state.cartPizzaList.push(pizza);
+        state.pizzaList.push(pizza);
       }
     },
 
-    [REMOVE_PIZZA_FROM_CART](state, pizza) {
-      state.cartPizzaList = state.cartPizzaList.filter(
-        (it) => it.id !== pizza.id
-      );
+    [SET_ADDITIONAL_LIST](state, additionalList) {
+      state.additionalList = additionalList;
     },
 
-    [INCREMENT_PIZZA_QUANTITY](state, pizza) {
-      const pizzaListItem = state.cartPizzaList.find(
-        (it) => it.id === pizza.id
-      );
-      pizzaListItem.quantity += 1;
+    [RESET_CART_STATE](state) {
+      Object.assign(state, {
+        pizzaList: [],
+        additionalList: state.additionalList.map((it) => ({
+          ...it,
+          quantity: 0,
+        })),
+        address: null,
+        phone: "",
+      });
     },
 
-    [DECREMENT_PIZZA_QUANTITY](state, pizza) {
-      const pizzaListItem = state.cartPizzaList.find(
-        (it) => it.id === pizza.id
-      );
-      pizzaListItem.quantity -= 1;
+    [SET_ADDRESS_PROPERTY](state, { property, value }) {
+      state.address[property] = value;
     },
 
     [INCREMENT_ADDITIONAL_QUANTITY](state, additional) {
-      const additionalListItem = state.cartAdditionalList.find(
+      const additionalListItem = state.additionalList.find(
         (it) => it.id === additional.id
       );
       additionalListItem.quantity += 1;
     },
 
     [DECREMENT_ADDITIONAL_QUANTITY](state, additional) {
-      const additionalListItem = state.cartAdditionalList.find(
+      const additionalListItem = state.additionalList.find(
         (it) => it.id === additional.id
       );
       if (additionalListItem.quantity !== 0) {
@@ -70,49 +73,146 @@ export default {
       }
     },
 
-    [RESET_CART_STATE](state) {
-      Object.assign(state, getDefaultState());
+    [REPEAT_ORDER](state, order) {
+      state.pizzaList = order.pizzaList;
+
+      state.additionalList = state.additionalList.map((it) => {
+        const orderAdditionalItem = order.additionalList.find(
+          (item) => item.id === it.id
+        );
+        return { ...it, quantity: orderAdditionalItem?.quantity || 0 };
+      });
     },
-  },
 
-  getters: {
-    orderPrice(state) {
-      const pizzaListPrice = state.cartPizzaList.reduce(
-        (acc, item) => acc + item.price * item.quantity,
-        0
-      );
+    [SET_ADDRESS](state, address) {
+      state.address = address;
+    },
 
-      const cartAdditionalListPrice = state.cartAdditionalList.reduce(
-        (acc, item) => acc + item.price * item.quantity,
-        0
-      );
-
-      return pizzaListPrice + cartAdditionalListPrice;
+    [SET_PHONE](state, phone) {
+      state.phone = phone;
     },
   },
 
   actions: {
-    [ADD_PIZZA_TO_CART]({ rootState, rootGetters, commit }) {
-      commit(ADD_PIZZA_TO_CART, {
-        id: rootState.Builder.pizzaId,
-        name: rootState.Builder.pizzaName,
-        dough: rootState.Builder.pizzaDough,
-        size: rootState.Builder.pizzaSize,
-        sauce: rootState.Builder.pizzaSauce,
+    async query({ commit }) {
+      const data = await this.$api.misc.query();
+      commit(SET_ADDITIONAL_LIST, data);
+    },
+
+    async submitOrder({ state, rootState }) {
+      const userId = rootState.Auth.user?.id ?? null;
+
+      const pizzaList = state.pizzaList.map((pizza) => ({
+        name: pizza.name,
+        sauceId: pizza.sauce.id,
+        doughId: pizza.dough.id,
+        sizeId: pizza.size.id,
+        quantity: pizza.quantity,
+        ingredients: pizza.ingredients.map((it) => ({
+          ingredientId: it.id,
+          quantity: it.count,
+        })),
+      }));
+
+      const additionalList = state.additionalList
+        .filter((it) => it.quantity > 0)
+        .map((it) => ({
+          miscId: it.id,
+          quantity: it.quantity,
+        }));
+
+      const cartAddress = state.address;
+
+      let address = null;
+
+      if (cartAddress) {
+        address = cartAddress.id ? { id: cartAddress.id } : cartAddress;
+      }
+
+      const order = {
+        userId,
+        phone: state.phone,
+        pizzas: pizzaList,
+        misc: additionalList,
+        address,
+      };
+
+      await this.$api.orders.post(order);
+    },
+
+    [ADD_PIZZA_TO_CART]({ rootState, rootGetters, commit, dispatch }) {
+      const builderPizza = rootState.Builder.pizza;
+
+      const normalizedPizza = {
+        id: builderPizza.id,
+        name: builderPizza.name,
+        dough: builderPizza.dough,
+        size: builderPizza.size,
+        sauce: builderPizza.sauce,
         ingredients: rootGetters["Builder/selectedPizzaIngredients"],
         price: rootGetters["Builder/pizzaPrice"],
-        quantity: rootState.Builder.pizzaQuantity,
-      });
+        quantity: builderPizza.quantity,
+      };
 
-      commit("Builder/RESET_BUILDER_STATE", null, { root: true });
+      commit(ADD_PIZZA_TO_CART, normalizedPizza);
+
+      dispatch("Builder/RESET_BUILDER_STATE", null, { root: true });
+    },
+
+    [INCREMENT_PIZZA_QUANTITY]({ commit }, pizza) {
+      commit(
+        UPDATE_ENTITY,
+        {
+          module,
+          entity: "pizzaList",
+          value: { ...pizza, quantity: pizza.quantity + 1 },
+        },
+        { root: true }
+      );
     },
 
     [DECREMENT_PIZZA_QUANTITY]({ commit }, pizza) {
       if (pizza.quantity === 1) {
-        commit(REMOVE_PIZZA_FROM_CART, pizza);
+        commit(
+          DELETE_ENTITY,
+          {
+            module,
+            entity: "pizzaList",
+            id: pizza.id,
+          },
+          { root: true }
+        );
       } else {
-        commit(DECREMENT_PIZZA_QUANTITY, pizza);
+        commit(
+          UPDATE_ENTITY,
+          {
+            module,
+            entity: "pizzaList",
+            value: { ...pizza, quantity: pizza.quantity - 1 },
+          },
+          { root: true }
+        );
       }
+    },
+  },
+
+  getters: {
+    pizzaListPrice(state) {
+      return state.pizzaList.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
+    },
+
+    additionalListPrice(state) {
+      return state.additionalList.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
+    },
+
+    orderPrice(state, getters) {
+      return getters.pizzaListPrice + getters.additionalListPrice;
     },
   },
 };

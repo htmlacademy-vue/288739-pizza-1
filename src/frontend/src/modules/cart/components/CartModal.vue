@@ -21,20 +21,12 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-
-import { RESET_CART_STATE } from "@/store/mutations-types";
-
 export default {
   name: "CartModal",
 
   methods: {
-    ...mapMutations("Cart", { resetCartState: RESET_CART_STATE }),
-
     onClose() {
       this.$emit("close");
-      this.$router.push("/");
-      this.resetCartState();
     },
   },
 };

@@ -2,9 +2,9 @@
   <div class="cart__additional">
     <ul class="additional-list">
       <CartAdditionalListItem
-        v-for="cartAdditionalListItem in cartAdditionalList"
-        :key="cartAdditionalListItem.id"
-        :additional="cartAdditionalListItem"
+        v-for="additional in additionalList"
+        :key="additional.id"
+        :additional="additional"
       />
     </ul>
   </div>
@@ -21,7 +21,7 @@ export default {
   components: { CartAdditionalListItem },
 
   computed: {
-    ...mapState("Cart", ["cartAdditionalList"]),
+    ...mapState("Cart", ["additionalList"]),
   },
 };
 </script>

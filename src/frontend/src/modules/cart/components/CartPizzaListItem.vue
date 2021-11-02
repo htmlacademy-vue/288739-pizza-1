@@ -58,13 +58,11 @@
 
 <script>
 import { PIZZA_SIZE_NUMBER } from "@/common/constants";
-import { SAUCE_TYPES } from "@/common/constants";
-import { mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 import {
   CHANGE_BUILDER_STATE,
   DECREMENT_PIZZA_QUANTITY,
   INCREMENT_PIZZA_QUANTITY,
-  REMOVE_PIZZA_FROM_CART,
 } from "@/store/mutations-types";
 
 export default {
@@ -79,11 +77,11 @@ export default {
 
   computed: {
     pizzaSize() {
-      return PIZZA_SIZE_NUMBER[this.pizza.size];
+      return PIZZA_SIZE_NUMBER[this.pizza.size.value];
     },
 
     pizzaDough() {
-      if (this.pizza.dough === "light") {
+      if (this.pizza.dough.value === "light") {
         return "на тонком тесте";
       } else {
         return "на толстом тесте";
@@ -91,8 +89,7 @@ export default {
     },
 
     pizzaSauce() {
-      const sauce = SAUCE_TYPES.find((item) => item.value === this.pizza.sauce);
-      return sauce.name.toLowerCase();
+      return this.pizza.sauce.name.toLowerCase();
     },
 
     pizzaIngredients() {
@@ -108,14 +105,12 @@ export default {
   },
 
   methods: {
-    ...mapMutations("Builder", { changeBuilderState: CHANGE_BUILDER_STATE }),
+    ...mapActions("Builder", { changeBuilderState: CHANGE_BUILDER_STATE }),
 
-    ...mapMutations("Cart", {
-      removePizzaFromCart: REMOVE_PIZZA_FROM_CART,
+    ...mapActions("Cart", {
       incrementPizzaQuantity: INCREMENT_PIZZA_QUANTITY,
+      decrementPizzaQuantity: DECREMENT_PIZZA_QUANTITY,
     }),
-
-    ...mapActions("Cart", { decrementPizzaQuantity: DECREMENT_PIZZA_QUANTITY }),
 
     changePizza() {
       this.changeBuilderState(this.pizza);

@@ -8,11 +8,16 @@
           v-for="dough in doughList"
           :key="dough.id"
           :value="dough.value"
-          :is-checked="dough.value === pizzaDough"
+          :is-checked="dough.value === pizza.dough.value"
           :class="`dough__input--${dough.value}`"
           class="dough__input"
           name="dough"
-          @change="setPizzaDough"
+          @change="
+            setPizzaProperty({
+              property: 'dough',
+              value: { ...dough, value: $event },
+            })
+          "
         >
           <b>{{ dough.name }}</b>
           <span>{{ dough.description }}</span>
@@ -24,7 +29,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { SET_PIZZA_DOUGH } from "@/store/mutations-types";
+import { SET_PIZZA_PROPERTY } from "@/store/mutations-types";
 
 import RadioButton from "@/common/components/RadioButton";
 
@@ -34,11 +39,11 @@ export default {
   components: { RadioButton },
 
   computed: {
-    ...mapState("Builder", ["doughList", "pizzaDough"]),
+    ...mapState("Builder", ["doughList", "pizza"]),
   },
 
   methods: {
-    ...mapMutations("Builder", { setPizzaDough: SET_PIZZA_DOUGH }),
+    ...mapMutations("Builder", { setPizzaProperty: SET_PIZZA_PROPERTY }),
   },
 };
 </script>

@@ -11,10 +11,15 @@
             v-for="sauce in sauceList"
             :key="sauce.id"
             :value="sauce.value"
-            :is-checked="sauce.value === pizzaSauce"
+            :is-checked="sauce.value === pizza.sauce.value"
             class="radio ingredients__input"
             name="sauce"
-            @change="setPizzaSauce"
+            @change="
+              setPizzaProperty({
+                property: 'sauce',
+                value: { ...sauce, value: $event },
+              })
+            "
           >
             <span>{{ sauce.name }}</span>
           </RadioButton>
@@ -44,8 +49,8 @@
                 :max="3"
                 class="ingredients__counter"
                 @input="
-                  changeIngredientCount({
-                    value: ingredient.value,
+                  setIngredientCount({
+                    ingredient: ingredient,
                     count: $event,
                   })
                 "
@@ -59,10 +64,10 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 import {
-  CHANGE_INGREDIENT_COUNT,
-  SET_PIZZA_SAUCE,
+  SET_INGREDIENT_COUNT,
+  SET_PIZZA_PROPERTY,
 } from "@/store/mutations-types";
 
 import AppDrag from "@/common/components/AppDrag";
@@ -76,13 +81,14 @@ export default {
   components: { RadioButton, SelectorItem, ItemCounter, AppDrag },
 
   computed: {
-    ...mapState("Builder", ["sauceList", "pizzaSauce", "ingredients"]),
+    ...mapState("Builder", ["sauceList", "pizza", "ingredients"]),
   },
 
   methods: {
-    ...mapMutations("Builder", {
-      setPizzaSauce: SET_PIZZA_SAUCE,
-      changeIngredientCount: CHANGE_INGREDIENT_COUNT,
+    ...mapMutations("Builder", { setPizzaProperty: SET_PIZZA_PROPERTY }),
+
+    ...mapActions("Builder", {
+      setIngredientCount: SET_INGREDIENT_COUNT,
     }),
   },
 };

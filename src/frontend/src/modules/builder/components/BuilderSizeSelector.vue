@@ -8,11 +8,16 @@
           v-for="size in sizeList"
           :key="size.id"
           :value="size.value"
-          :is-checked="size.value === pizzaSize"
+          :is-checked="size.value === pizza.size.value"
           :class="`diameter__input--${size.value}`"
           class="diameter__input"
           name="diameter"
-          @change="setPizzaSize"
+          @change="
+            setPizzaProperty({
+              property: 'size',
+              value: { ...size, value: $event },
+            })
+          "
         >
           <span>{{ size.name }}</span>
         </RadioButton>
@@ -23,7 +28,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { SET_PIZZA_SIZE } from "@/store/mutations-types";
+import { SET_PIZZA_PROPERTY } from "@/store/mutations-types";
 
 import RadioButton from "@/common/components/RadioButton";
 
@@ -33,11 +38,11 @@ export default {
   components: { RadioButton },
 
   computed: {
-    ...mapState("Builder", ["sizeList", "pizzaSize"]),
+    ...mapState("Builder", ["sizeList", "pizza"]),
   },
 
   methods: {
-    ...mapMutations("Builder", { setPizzaSize: SET_PIZZA_SIZE }),
+    ...mapMutations("Builder", { setPizzaProperty: SET_PIZZA_PROPERTY }),
   },
 };
 </script>

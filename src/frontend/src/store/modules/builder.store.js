@@ -1,79 +1,120 @@
 import {
-  SET_PIZZA_NAME,
-  SET_PIZZA_DOUGH,
-  SET_PIZZA_SIZE,
-  SET_PIZZA_SAUCE,
-  CHANGE_INGREDIENT_COUNT,
+  UPDATE_ENTITY,
+  SET_PIZZA,
+  SET_INGREDIENTS,
+  SET_PIZZA_PROPERTY,
+  SET_BUILDER_LIST,
+  SET_INGREDIENT_COUNT,
   RESET_BUILDER_STATE,
+  RESET_PIZZA_STATE,
+  RESET_INGREDIENTS_STATE,
   CHANGE_BUILDER_STATE,
 } from "@/store/mutations-types";
 
-import {
-  normalizeDough,
-  normalizeIngredient,
-  normalizeSauce,
-  normalizeSize,
-} from "@/common/helpers";
+import { BUILDER_DEFAULTS } from "@/common/constants";
 
-import jsonPizza from "@/static/pizza.json";
-
-const getDefaultState = () => ({
-  ingredients: jsonPizza.ingredients.map(normalizeIngredient),
-  doughList: jsonPizza.dough.map(normalizeDough),
-  sizeList: jsonPizza.sizes.map(normalizeSize),
-  sauceList: jsonPizza.sauces.map(normalizeSauce),
-  pizzaName: "",
-  pizzaDough: "light",
-  pizzaSize: "small",
-  pizzaSauce: "tomato",
-  pizzaId: Date.now(),
-  pizzaQuantity: 1,
-});
+const module = "Builder";
 
 export default {
   namespaced: true,
 
-  state: getDefaultState(),
+  state: {
+    ingredients: [],
+    doughList: [],
+    sizeList: [],
+    sauceList: [],
+    pizza: null,
+  },
 
   mutations: {
-    [SET_PIZZA_NAME](state, value) {
-      state.pizzaName = value;
+    [SET_PIZZA](state, pizza) {
+      state.pizza = pizza;
     },
 
-    [SET_PIZZA_DOUGH](state, value) {
-      state.pizzaDough = value;
+    [SET_INGREDIENTS](state, ingredients) {
+      state.ingredients = ingredients;
     },
 
-    [SET_PIZZA_SIZE](state, value) {
-      state.pizzaSize = value;
+    [SET_PIZZA_PROPERTY](state, { property, value }) {
+      state.pizza[property] = value;
     },
 
-    [SET_PIZZA_SAUCE](state, value) {
-      state.pizzaSauce = value;
+    [SET_BUILDER_LIST](state, { list, value }) {
+      state[list] = value;
     },
 
-    [CHANGE_INGREDIENT_COUNT](state, { value, count }) {
-      const ingredient = state.ingredients.find((it) => it.value === value);
-      ingredient.count = count;
+    [RESET_PIZZA_STATE](state) {
+      const defaultDough = state.doughList.find(
+        (it) => it.id === BUILDER_DEFAULTS.doughId
+      );
+      const defaultSize = state.sizeList.find(
+        (it) => it.id === BUILDER_DEFAULTS.sizeId
+      );
+      const defaultSauce = state.sauceList.find(
+        (it) => it.id === BUILDER_DEFAULTS.sauceId
+      );
+
+      const defaultPizzaState = {
+        name: "",
+        id: Date.now(),
+        quantity: 1,
+        dough: defaultDough,
+        size: defaultSize,
+        sauce: defaultSauce,
+      };
+
+      state.pizza = defaultPizzaState;
     },
 
-    [CHANGE_BUILDER_STATE](state, pizza) {
-      state.pizzaId = pizza.id;
-      state.pizzaQuantity = pizza.quantity;
-      state.pizzaName = pizza.name;
-      state.pizzaDough = pizza.dough;
-      state.pizzaSize = pizza.size;
-      state.pizzaSauce = pizza.sauce;
-      state.ingredients = state.ingredients.map((it) => {
-        const ingredient = pizza.ingredients.find(
-          (item) => item.value === it.value
-        );
+    [RESET_INGREDIENTS_STATE](state) {
+      state.ingredients = state.ingredients.map((it) => ({ ...it, count: 0 }));
+    },
+  },
+
+  actions: {
+    async query({ commit }) {
+      const [doughList, sauceList, sizeList, ingredients] = await Promise.all([
+        this.$api.dough.query(),
+        this.$api.sauces.query(),
+        this.$api.sizes.query(),
+        this.$api.ingredients.query(),
+      ]);
+
+      commit(SET_BUILDER_LIST, { list: "doughList", value: doughList });
+      commit(SET_BUILDER_LIST, { list: "sauceList", value: sauceList });
+      commit(SET_BUILDER_LIST, { list: "sizeList", value: sizeList });
+      commit(SET_BUILDER_LIST, { list: "ingredients", value: ingredients });
+      commit(RESET_PIZZA_STATE);
+    },
+
+    [CHANGE_BUILDER_STATE]({ commit, state }, builderState) {
+      const { ingredients, ...pizza } = builderState;
+
+      commit(SET_PIZZA, pizza);
+
+      const normalizedIngredients = state.ingredients.map((it) => {
+        const ingredient = ingredients.find((item) => item.value === it.value);
         return ingredient ? ingredient : it;
       });
+
+      commit(SET_INGREDIENTS, normalizedIngredients);
     },
 
-    [RESET_BUILDER_STATE](state) {
-      Object.assign(state, getDefaultState());
+    [SET_INGREDIENT_COUNT]({ commit }, { ingredient, count }) {
+      commit(
+        UPDATE_ENTITY,
+        {
+          module,
+          entity: "ingredients",
+          value: { ...ingredient, count },
+        },
+        { root: true }
+      );
+    },
+
+    [RESET_BUILDER_STATE]({ commit }) {
+      commit(RESET_PIZZA_STATE);
+      commit(RESET_INGREDIENTS_STATE);
     },
   },
 
@@ -83,25 +124,20 @@ export default {
     },
 
     pizzaPrice(state, getters) {
-      const dough = state.doughList.find((it) => it.value === state.pizzaDough);
-      const sauce = state.sauceList.find((it) => it.value === state.pizzaSauce);
-      const size = state.sizeList.find((it) => it.value === state.pizzaSize);
+      const doughPrice = state.pizza?.dough.price || 0;
+      const saucePrice = state.pizza?.sauce.price || 0;
+      const sizeMultiplier = state.pizza?.size.multiplier || 1;
       const ingredientsTotalPrice = getters.selectedPizzaIngredients.reduce(
-        (acc, it) => {
-          acc += it.count * it.price;
-          return acc;
-        },
+        (acc, it) => acc + it.count * it.price,
         0
       );
 
-      return (
-        (dough.price + sauce.price + ingredientsTotalPrice) * size.multiplier
-      );
+      return (doughPrice + saucePrice + ingredientsTotalPrice) * sizeMultiplier;
     },
 
     isPizzaOrderReady(state, getters) {
       return Boolean(
-        getters.selectedPizzaIngredients.length && state.pizzaName
+        getters.selectedPizzaIngredients.length && state.pizza.name
       );
     },
   },
