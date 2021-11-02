@@ -75,7 +75,13 @@ export default {
 
     [REPEAT_ORDER](state, order) {
       state.pizzaList = order.pizzaList;
-      state.additionalList = order.additionalList;
+
+      state.additionalList = state.additionalList.map((it) => {
+        const orderAdditionalItem = order.additionalList.find(
+          (item) => item.id === it.id
+        );
+        return { ...it, quantity: orderAdditionalItem?.quantity || 0 };
+      });
     },
 
     [SET_ADDRESS](state, address) {
