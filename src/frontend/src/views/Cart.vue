@@ -20,7 +20,9 @@
 
     <CartFooter v-if="!isCartEmpty" />
 
-    <CartModal v-if="isModalShown" @close="onModalClose" />
+    <transition name="fade" mode="out-in" appear>
+      <CartModal v-if="isModalShown" @close="onModalClose" />
+    </transition>
   </form>
 </template>
 
@@ -74,11 +76,13 @@ export default {
     onModalClose() {
       this.resetCartState();
       this.isModalShown = false;
-      if (this.isAuthenticated) {
-        this.$router.push("/orders");
-      } else {
-        this.$router.push("/");
-      }
+      setTimeout(() => {
+        if (this.isAuthenticated) {
+          this.$router.push("/orders");
+        } else {
+          this.$router.push("/");
+        }
+      }, 700);
     },
 
     async onSubmit() {
@@ -88,3 +92,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.7s ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+</style>

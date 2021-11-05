@@ -36,10 +36,12 @@ export default {
 .slide-enter-active {
   transition: all 0.5s;
 }
+
 .slide-enter {
   opacity: 0;
   margin-left: 50px;
 }
+
 .slide-leave-active {
   transition: all 0.5s;
   opacity: 0;
