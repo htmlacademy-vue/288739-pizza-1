@@ -24,26 +24,28 @@
       >
         <div :class="pizzaFoundationClass" class="pizza">
           <div class="pizza__wrapper">
-            <template v-for="ingredient in selectedPizzaIngredients">
-              <div
-                v-if="ingredient.count > 0"
-                :key="`${ingredient.name}-1`"
-                :class="`pizza__filling--${ingredient.value}`"
-                class="pizza__filling"
-              />
-              <div
-                v-if="ingredient.count > 1"
-                :key="`${ingredient.name}-2`"
-                :class="`pizza__filling--${ingredient.value}`"
-                class="pizza__filling pizza__filling--second"
-              />
-              <div
-                v-if="ingredient.count > 2"
-                :key="`${ingredient.name}-3`"
-                :class="`pizza__filling--${ingredient.value}`"
-                class="pizza__filling pizza__filling--third"
-              />
-            </template>
+            <transition-group name="drop" mode="out-in">
+              <template v-for="ingredient in selectedPizzaIngredients">
+                <div
+                  v-if="ingredient.count > 0"
+                  :key="`${ingredient.name}-1`"
+                  :class="`pizza__filling--${ingredient.value}`"
+                  class="pizza__filling"
+                />
+                <div
+                  v-if="ingredient.count > 1"
+                  :key="`${ingredient.name}-2`"
+                  :class="`pizza__filling--${ingredient.value}`"
+                  class="pizza__filling pizza__filling--second"
+                />
+                <div
+                  v-if="ingredient.count > 2"
+                  :key="`${ingredient.name}-3`"
+                  :class="`pizza__filling--${ingredient.value}`"
+                  class="pizza__filling pizza__filling--third"
+                />
+              </template>
+            </transition-group>
           </div>
         </div>
       </AppDrop>
@@ -93,3 +95,23 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.drop-enter-active {
+  animation: drop 0.7s;
+}
+
+.drop-leave-active {
+  animation: drop 0.5s reverse;
+}
+
+@keyframes drop {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+</style>
