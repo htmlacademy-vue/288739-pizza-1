@@ -1,0 +1,25 @@
+{
+  "id": 73,
+  "phone": "89232548734",
+  "userId": "88e9a640-8b80-437a-b0c5-863d520895b2",
+  "addressId": null,
+  "orderPizzas": [
+    {
+      "id": 72,
+      "name": "Pizza",
+      "quantity": 2,
+      "sauceId": 1,
+      "doughId": 1,
+      "sizeId": 1,
+      "orderId": 73,
+      "ingredients": [
+        { "id": 95, "quantity": 1, "pizzaId": 72, "ingredientId": 4 }
+      ]
+    }
+  ],
+  "orderMisc": [
+    { "id": 72, "quantity": 1, "orderId": 73, "miscId": 1 },
+    { "id": 73, "quantity": 1, "orderId": 73, "miscId": 2 },
+    { "id": 74, "quantity": 1, "orderId": 73, "miscId": 3 }
+  ]
+}
