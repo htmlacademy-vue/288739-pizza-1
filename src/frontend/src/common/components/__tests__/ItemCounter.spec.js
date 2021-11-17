@@ -27,14 +27,14 @@ describe("ItemCounter", () => {
     createComponent({ propsData });
     const minusButton = wrapper.find('[data-test="minus-button"]');
     await minusButton.trigger("click");
-    expect(wrapper.emitted("input")).toEqual([[2]]);
+    expect(wrapper.emitted().input[0][0]).toEqual(2);
   });
 
   it("emits button plus event on click", async () => {
     createComponent({ propsData });
     const plusButton = wrapper.find('[data-test="plus-button"]');
     await plusButton.trigger("click");
-    expect(wrapper.emitted("input")).toEqual([[1]]);
+    expect(wrapper.emitted().input[0][0]).toEqual(1);
   });
 
   it("disables minus button if count = 0", () => {
