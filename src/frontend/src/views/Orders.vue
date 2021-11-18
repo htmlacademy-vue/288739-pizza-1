@@ -5,10 +5,17 @@
     </div>
 
     <template v-if="orders.length">
-      <OrdersItem v-for="order of orders" :order="order" :key="order.id" />
+      <OrdersItem
+        v-for="order of orders"
+        :order="order"
+        :key="order.id"
+        data-test="orders-item"
+      />
     </template>
 
-    <p v-else>Вы не сделали ещё ни одного заказа.</p>
+    <p v-else data-test="orders-empty-message">
+      Вы не сделали ещё ни одного заказа.
+    </p>
   </div>
 </template>
 
