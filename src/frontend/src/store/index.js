@@ -7,14 +7,14 @@ import { UPDATE_ENTITY, DELETE_ENTITY } from "@/store/mutations-types";
 
 Vue.use(Vuex);
 
-const actions = {
+export const actions = {
   async init({ dispatch }) {
     dispatch("Builder/query");
     dispatch("Cart/query");
   },
 };
 
-const mutations = {
+export const mutations = {
   [UPDATE_ENTITY](state, { module, entity, value }) {
     if (module) {
       const index = state[module][entity].findIndex(

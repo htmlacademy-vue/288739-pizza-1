@@ -14,6 +14,7 @@
             :is-checked="sauce.value === pizza.sauce.value"
             class="radio ingredients__input"
             name="sauce"
+            data-test="sauce-selector-item"
             @change="
               setPizzaProperty({
                 property: 'sauce',
@@ -33,6 +34,7 @@
               v-for="ingredient in ingredients"
               :key="ingredient.id"
               class="ingredients__item"
+              data-test="ingredients-item"
             >
               <AppDrag
                 :transfer-data="ingredient"
@@ -48,6 +50,7 @@
                 :min="0"
                 :max="3"
                 class="ingredients__counter"
+                data-test="ingredient-counter"
                 @input="
                   setIngredientCount({
                     ingredient: ingredient,
