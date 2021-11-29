@@ -1,6 +1,6 @@
 <template>
   <div class="cart__additional">
-    <ul class="additional-list">
+    <ul class="additional-list" data-test="additional-list">
       <CartAdditionalListItem
         v-for="additional in additionalList"
         :key="additional.id"

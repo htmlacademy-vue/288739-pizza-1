@@ -6,8 +6,9 @@
         :alt="additional.name"
         width="39"
         height="60"
+        data-test="additional-image"
       />
-      <span>{{ additional.name }}</span>
+      <span data-test="additional-name">{{ additional.name }}</span>
     </p>
 
     <div class="additional-list__wrapper">
@@ -16,6 +17,7 @@
           :disabled="!additional.quantity"
           class="counter__button counter__button--minus"
           type="button"
+          data-test="additional-minus-button"
           @click="decrementAdditionalQuantity(additional)"
         >
           <span class="visually-hidden">Меньше</span>
@@ -27,11 +29,13 @@
           type="text"
           name="counter"
           readonly
+          data-test="additional-quantity"
         />
 
         <button
           class="counter__button counter__button--plus counter__button--orange"
           type="button"
+          data-test="additional-plus-button"
           @click="incrementAdditionalQuantity(additional)"
         >
           <span class="visually-hidden">Больше</span>
@@ -39,7 +43,7 @@
       </div>
 
       <div class="additional-list__price">
-        <b>{{ additional.price }} ₽/шт.</b>
+        <b data-test="additional-price-text">{{ additional.price }} ₽/шт.</b>
       </div>
     </div>
   </li>
