@@ -1,5 +1,5 @@
 <template>
-  <ul class="cart-list sheet">
+  <ul class="cart-list sheet" data-test="pizza-list">
     <CartPizzaListItem
       v-for="pizza in pizzaList"
       :key="pizza.id"
