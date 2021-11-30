@@ -4,11 +4,17 @@ import modules from "@/store/modules";
 import Vuex from "vuex";
 import VuexPlugins from "@/plugins/vuexPlugins";
 
-export const generateMockStore = (actions) => {
+export const generateMockStore = (moduleActions, moduleMutations) => {
   const modulesCopy = cloneDeep(modules);
 
-  if (actions) {
-    Object.entries(actions).forEach(([module, actions]) => {
+  if (moduleMutations) {
+    Object.entries(moduleMutations).forEach(([module, mutations]) => {
+      modulesCopy[module] = { ...modulesCopy[module], mutations };
+    });
+  }
+
+  if (moduleActions) {
+    Object.entries(moduleActions).forEach(([module, actions]) => {
       modulesCopy[module] = { ...modulesCopy[module], actions };
     });
   }

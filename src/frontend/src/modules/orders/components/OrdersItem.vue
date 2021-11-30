@@ -2,17 +2,18 @@
   <section class="sheet order">
     <div class="order__wrapper">
       <div class="order__number">
-        <b>Заказ #{{ order.id }}</b>
+        <b data-test="order-number">Заказ #{{ order.id }}</b>
       </div>
 
       <div class="order__sum">
-        <span>Сумма заказа: {{ orderTotalPrice }} ₽</span>
+        <span data-test="order-sum">Сумма заказа: {{ orderTotalPrice }} ₽</span>
       </div>
 
       <div class="order__button">
         <button
           type="button"
           class="button button--border"
+          data-test="order-delete-button"
           @click="deleteOrder(order.id)"
         >
           Удалить
@@ -20,7 +21,12 @@
       </div>
 
       <div class="order__button">
-        <button type="button" class="button" @click="onRepeatOrderButtonClick">
+        <button
+          type="button"
+          class="button"
+          data-test="order-repeat-button"
+          @click="onRepeatOrderButtonClick"
+        >
           Повторить
         </button>
       </div>
@@ -42,7 +48,7 @@
       />
     </ul>
 
-    <p class="order__address" v-if="order.addressId">
+    <p class="order__address" v-if="order.addressId" data-test="order-address">
       Адрес доставки: {{ orderAddressName }}
     </p>
   </section>
