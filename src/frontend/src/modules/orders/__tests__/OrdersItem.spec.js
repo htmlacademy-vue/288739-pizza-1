@@ -62,7 +62,7 @@ describe("OrdersItem", () => {
     createComponent({ propsData });
 
     const orderSum = wrapper.find('[data-test="order-sum"]');
-    expect(orderSum.text()).toContain(`1036 ₽`);
+    expect(orderSum.text()).toContain(`1092 ₽`);
   });
 
   it("dispatches deleteOrder store method on delete button click", async () => {
@@ -99,7 +99,11 @@ describe("OrdersItem", () => {
 
   it("renders order misc component", () => {
     createComponent({ propsData });
-    expect(wrapper.findComponent(OrdersItemMisc).exists()).toBeTruthy();
+
+    const OrdersItemMiscComponents = wrapper.findAllComponents(OrdersItemMisc);
+    expect(OrdersItemMiscComponents.length).toBe(
+      propsData.order.orderMisc.length
+    );
   });
 
   it("renders order address", () => {
