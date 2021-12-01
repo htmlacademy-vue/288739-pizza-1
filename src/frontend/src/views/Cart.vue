@@ -1,12 +1,16 @@
 <template>
-  <form class="layout-form" @submit.prevent="onSubmit">
+  <form class="layout-form" data-test="cart-form" @submit.prevent="onSubmit">
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
           <h1 class="title title--big">Корзина</h1>
         </div>
 
-        <div v-if="isCartEmpty" class="sheet cart__empty">
+        <div
+          v-if="isCartEmpty"
+          class="sheet cart__empty"
+          data-test="cart-empty"
+        >
           <p>В корзине нет ни одного товара</p>
         </div>
 

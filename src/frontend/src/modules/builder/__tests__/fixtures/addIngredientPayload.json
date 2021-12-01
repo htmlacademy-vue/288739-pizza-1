@@ -1,0 +1,12 @@
+{
+  "module": "Builder",
+  "entity": "ingredients",
+  "value": {
+    "id": 1,
+    "name": "Грибы",
+    "image": "/public/img/filling/mushrooms.svg",
+    "price": 33,
+    "value": "mushrooms",
+    "count": 1
+  }
+}

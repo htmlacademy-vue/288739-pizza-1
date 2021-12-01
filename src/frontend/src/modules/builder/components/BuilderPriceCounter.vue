@@ -1,11 +1,12 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ pizzaPrice }} ₽</p>
+    <p data-test="price-text">Итого: {{ pizzaPrice }} ₽</p>
     <button
       :class="{ 'button--disabled': !isPizzaOrderReady }"
       :disabled="!isPizzaOrderReady"
       type="button"
       class="button"
+      data-test="add-to-cart-button"
       @click="addPizzaToCart"
     >
       Готовьте!

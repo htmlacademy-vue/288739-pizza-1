@@ -13,7 +13,11 @@
       :number="index + 1"
     />
 
-    <div v-if="isAddressFormShown" class="layout__address">
+    <div
+      v-if="isAddressFormShown"
+      class="layout__address"
+      data-test="profile-form-wrapper"
+    >
       <ProfileForm @close="onAddressFormClose" @submit="onAddressSubmit" />
     </div>
 
@@ -21,6 +25,7 @@
       <button
         type="button"
         class="button button--border"
+        data-test="open-new-address-form-button"
         @click="onAddressFormShowButtonClick"
         :disabled="isAddressFormShown"
       >
