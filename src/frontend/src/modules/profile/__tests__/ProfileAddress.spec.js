@@ -12,7 +12,6 @@ describe("ProfileAddress", () => {
   let wrapper;
   let store;
   let propsData;
-  let actions;
 
   const createComponent = (options) => {
     wrapper = shallowMount(ProfileAddress, {
@@ -23,14 +22,8 @@ describe("ProfileAddress", () => {
   };
 
   beforeEach(() => {
-    actions = {
-      Addresses: {
-        delete: jest.fn(),
-        put: jest.fn(),
-      },
-    };
     propsData = { address: addressJson, number: 1 };
-    store = generateMockStore(actions);
+    store = generateMockStore();
   });
 
   afterEach(() => {

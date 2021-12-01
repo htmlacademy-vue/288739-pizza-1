@@ -1,10 +1,11 @@
 <template>
   <form
     class="address-form address-form--opened sheet"
+    data-test="address-form"
     @submit.prevent="$emit('submit', updatedAddress, resetForm)"
   >
     <div class="address-form__header">
-      <b>Адрес №{{ addressNumber }}</b>
+      <b data-test="address-number">Адрес №{{ addressNumber }}</b>
     </div>
 
     <div class="address-form__wrapper">
@@ -18,6 +19,7 @@
             name="addr-name"
             placeholder="Введите название адреса"
             required
+            data-test="address-name-input"
           />
         </label>
       </div>
@@ -32,6 +34,7 @@
             name="addr-street"
             placeholder="Введите название улицы"
             required
+            data-test="address-street-input"
           />
         </label>
       </div>
@@ -46,6 +49,7 @@
             name="addr-house"
             placeholder="Введите номер дома"
             required
+            data-test="address-building-input"
           />
         </label>
       </div>
@@ -59,6 +63,7 @@
             type="text"
             name="addr-apartment"
             placeholder="Введите № квартиры"
+            data-test="address-flat-input"
           />
         </label>
       </div>
@@ -72,6 +77,7 @@
             type="text"
             name="addr-comment"
             placeholder="Введите комментарий"
+            data-test="address-comment-input"
           />
         </label>
       </div>
@@ -81,6 +87,7 @@
       <button
         type="button"
         class="button button--transparent"
+        data-test="address-delete-button"
         @click="$emit('close', resetForm)"
       >
         Удалить
