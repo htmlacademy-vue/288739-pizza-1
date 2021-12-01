@@ -1,13 +1,20 @@
 <template>
   <div class="layout__address">
-    <div v-if="!isAddressFormShown" class="sheet address-form">
+    <div
+      v-if="!isAddressFormShown"
+      class="sheet address-form"
+      data-test="address-info-card"
+    >
       <div class="address-form__header">
-        <b>Адрес №{{ number }}. {{ address.name }}</b>
+        <b data-test="address-number-and-name">
+          Адрес №{{ number }}. {{ address.name }}
+        </b>
 
         <div class="address-form__edit">
           <button
             type="button"
             class="icon"
+            data-test="address-edit-button"
             @click="onShowAddressFormButtonClick"
           >
             <span class="visually-hidden">Изменить адрес</span>
@@ -15,11 +22,13 @@
         </div>
       </div>
 
-      <p>
-        {{ address.street }}, д. {{ address.building }}
-        <template v-if="address.flat"> , оф. {{ address.flat }} </template>
+      <p data-test="address-full">
+        {{ address.street }}, д. {{ address.building
+        }}<template v-if="address.flat"> , оф. {{ address.flat }} </template>
       </p>
-      <small v-if="address.comment">{{ address.comment }}</small>
+      <small v-if="address.comment" data-test="address-comment">
+        {{ address.comment }}
+      </small>
     </div>
 
     <ProfileForm
