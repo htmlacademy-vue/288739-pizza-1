@@ -7,27 +7,34 @@
         width="56"
         height="56"
         :alt="normalizedPizza.name"
+        data-test="order-pizza-image"
       />
 
       <div class="product__text">
-        <h2>{{ normalizedPizza.name }}</h2>
+        <h2 data-test="order-pizza-name">{{ normalizedPizza.name }}</h2>
 
         <ul>
-          <li>
-            {{ normalizedPizza.size }},
-            {{ normalizedPizza.dough }}
+          <li data-test="order-pizza-size-and-dough">
+            {{ normalizedPizza.size }}, {{ normalizedPizza.dough }}
           </li>
-          <li>Соус: {{ normalizedPizza.sauce }}</li>
-          <li>Начинка: {{ normalizedPizza.ingredients }}</li>
+          <li data-test="order-pizza-sauce">
+            Соус: {{ normalizedPizza.sauce }}
+          </li>
+          <li data-test="order-pizza-ingredients">
+            Начинка: {{ normalizedPizza.ingredients }}
+          </li>
         </ul>
       </div>
     </div>
 
     <p class="order__price">
-      <span v-if="normalizedPizza.quantity > 1"
-        >{{ normalizedPizza.quantity }}x</span
+      <span
+        v-if="normalizedPizza.quantity > 1"
+        data-test="order-pizza-quantity"
       >
-      <span>{{ normalizedPizza.price }} ₽</span>
+        {{ normalizedPizza.quantity }}x</span
+      >
+      <span data-test="order-pizza-price">{{ normalizedPizza.price }} ₽</span>
     </p>
   </li>
 </template>

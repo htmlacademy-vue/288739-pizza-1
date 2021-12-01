@@ -1,7 +1,11 @@
 <template>
   <section class="footer">
     <div class="footer__more">
-      <router-link to="/" class="button button--border button--arrow">
+      <router-link
+        to="/"
+        class="button button--border button--arrow"
+        data-test="footer-more-button"
+      >
         Хочу еще одну
       </router-link>
     </div>
@@ -11,7 +15,7 @@
     </p>
 
     <div class="footer__price">
-      <b>Итого: {{ orderPrice }} ₽</b>
+      <b data-test="footer-price-text">Итого: {{ orderPrice }} ₽</b>
     </div>
 
     <div class="footer__submit">

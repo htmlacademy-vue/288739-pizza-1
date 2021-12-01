@@ -7,6 +7,7 @@
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
+        data-test="pizza-name-input"
         @input="
           setPizzaProperty({ property: 'name', value: $event.target.value })
         "
@@ -22,7 +23,7 @@
           })
         "
       >
-        <div :class="pizzaFoundationClass" class="pizza">
+        <div :class="pizzaFoundationClass" class="pizza" data-test="pizza-view">
           <div class="pizza__wrapper">
             <transition-group name="drop" mode="out-in">
               <template v-for="ingredient in selectedPizzaIngredients">

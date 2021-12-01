@@ -4,6 +4,7 @@
       :disabled="value <= min"
       type="button"
       class="counter__button counter__button--minus"
+      data-test="minus-button"
       @click="$emit('input', value - 1)"
     >
       <span class="visually-hidden">Меньше</span>
@@ -20,6 +21,7 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
+      data-test="plus-button"
       :disabled="value >= max"
       @click="$emit('input', value + 1)"
     >

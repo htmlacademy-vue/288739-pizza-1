@@ -17,6 +17,7 @@
           class="layout__link"
           active-class="layout__link--active"
           to="/orders"
+          data-test="sidebar-orders-link"
         >
           История заказов
         </router-link>
@@ -25,6 +26,7 @@
           class="layout__link"
           active-class="layout__link--active"
           to="/profile"
+          data-test="sidebar-profile-link"
         >
           Мои данные
         </router-link>

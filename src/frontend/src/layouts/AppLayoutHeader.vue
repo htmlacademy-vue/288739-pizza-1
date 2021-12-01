@@ -10,21 +10,33 @@
         />
       </router-link>
     </div>
-    <div class="header__cart">
-      <router-link to="/cart">{{ orderPrice }} ₽</router-link>
+    <div class="header__cart" data-test="header-cart">
+      <router-link to="/cart" data-test="header-cart-link"
+        >{{ orderPrice }} ₽</router-link
+      >
     </div>
     <div class="header__user">
-      <router-link v-if="!isAuthenticated" to="/login" class="header__login">
+      <router-link
+        v-if="!isAuthenticated"
+        to="/login"
+        class="header__login"
+        data-test="header-login"
+      >
         <span>Войти</span>
       </router-link>
 
       <template v-else>
-        <router-link v-if="user" to="/profile">
+        <router-link v-if="user" to="/profile" data-test="header-profile-link">
           <img :src="user.avatar" :alt="user.name" width="32" height="32" />
           <span>{{ user.name }}</span>
         </router-link>
 
-        <a href="#" class="header__logout" @click.prevent="$logout">
+        <a
+          href="#"
+          class="header__logout"
+          @click.prevent="$logout"
+          data-test="header-logout"
+        >
           <span>Выйти</span>
         </a>
       </template>

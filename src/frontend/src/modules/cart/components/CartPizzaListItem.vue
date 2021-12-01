@@ -7,13 +7,19 @@
         class="product__img"
         width="56"
         height="56"
+        data-test="pizza-image"
       />
       <div class="product__text">
-        <h2>{{ pizza.name }}</h2>
+        <h2 data-test="cart-pizza-name">{{ pizza.name }}</h2>
         <ul>
-          <li>{{ pizzaSize }} см, {{ pizzaDough }}</li>
-          <li>Соус: {{ pizzaSauce }}</li>
-          <li>Начинка: {{ pizzaIngredients }}</li>
+          <li>
+            <span data-test="cart-pizza-size">{{ pizzaSize }} см</span>,
+            <span data-test="cart-pizza-dough">{{ pizzaDough }}</span>
+          </li>
+          <li data-test="cart-pizza-sauce">Соус: {{ pizzaSauce }}</li>
+          <li data-test="cart-pizza-ingredients">
+            Начинка: {{ pizzaIngredients }}
+          </li>
         </ul>
       </div>
     </div>
@@ -22,6 +28,7 @@
       <button
         type="button"
         class="counter__button counter__button--minus"
+        data-test="pizza-minus-button"
         @click="decrementPizzaQuantity(pizza)"
       >
         <span class="visually-hidden">Меньше</span>
@@ -33,11 +40,13 @@
         name="counter"
         class="counter__input"
         readonly
+        data-test="pizza-quantity"
       />
 
       <button
         type="button"
         class="counter__button counter__button--plus counter__button--orange"
+        data-test="pizza-plus-button"
         @click="incrementPizzaQuantity(pizza)"
       >
         <span class="visually-hidden">Больше</span>
@@ -45,11 +54,16 @@
     </div>
 
     <div class="cart-list__price">
-      <b>{{ pizzaTotalPrice }} ₽</b>
+      <b data-test="cart-pizza-price">{{ pizzaTotalPrice }} ₽</b>
     </div>
 
     <div class="cart-list__button">
-      <button type="button" class="cart-list__edit" @click="changePizza">
+      <button
+        type="button"
+        class="cart-list__edit"
+        data-test="cart-change-button"
+        @click="changePizza"
+      >
         Изменить
       </button>
     </div>

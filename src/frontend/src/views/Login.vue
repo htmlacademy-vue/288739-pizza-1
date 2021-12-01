@@ -1,6 +1,11 @@
 <template>
   <div class="sign-form">
-    <a href="#" class="close close--white" @click.prevent="$router.back">
+    <a
+      href="#"
+      class="close close--white"
+      data-test="login-form-close"
+      @click.prevent="$router.back"
+    >
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </a>
 
@@ -19,6 +24,7 @@
             name="email"
             placeholder="example@mail.ru"
             required
+            data-test="login-email-input"
           />
         </label>
       </div>
@@ -32,10 +38,13 @@
             name="pass"
             placeholder="***********"
             required
+            data-test="login-password-input"
           />
         </label>
       </div>
-      <button type="submit" class="button">Авторизоваться</button>
+      <button type="submit" class="button" data-test="login-submit-button">
+        Авторизоваться
+      </button>
     </form>
   </div>
 </template>

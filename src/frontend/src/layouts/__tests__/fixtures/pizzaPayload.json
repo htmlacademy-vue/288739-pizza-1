@@ -1,0 +1,32 @@
+{
+  "id": 1636820886135,
+  "name": "Test",
+  "dough": {
+    "id": 1,
+    "name": "Тонкое",
+    "image": "/public/img/dough-light.svg",
+    "description": "Из твердых сортов пшеницы",
+    "price": 300,
+    "value": "light"
+  },
+  "size": {
+    "id": 1,
+    "name": "23 см",
+    "image": "/public/img/diameter.svg",
+    "multiplier": 1,
+    "value": "small"
+  },
+  "sauce": { "id": 1, "name": "Томатный", "price": 50, "value": "tomato" },
+  "ingredients": [
+    {
+      "id": 4,
+      "name": "Лосось",
+      "image": "/public/img/filling/salmon.svg",
+      "price": 50,
+      "value": "salmon",
+      "count": 1
+    }
+  ],
+  "price": 400,
+  "quantity": 1
+}

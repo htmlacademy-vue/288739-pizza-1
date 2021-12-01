@@ -1,7 +1,11 @@
 <template>
-  <div class="backdrop" @click="onClose">
+  <div class="backdrop" data-test="modal-backdrop" @click="onClose">
     <div class="popup" @click.stop>
-      <button class="close btn-close" @click.prevent="onClose">
+      <button
+        class="close btn-close"
+        data-test="modal-close-button"
+        @click.prevent="onClose"
+      >
         <span class="visually-hidden">Закрыть попап</span>
       </button>
 
@@ -12,7 +16,12 @@
       <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
 
       <div class="popup__button">
-        <a href="#" class="button" @click.prevent="onClose">
+        <a
+          href="#"
+          class="button"
+          data-test="modal-ok-button"
+          @click.prevent="onClose"
+        >
           Отлично, я жду!
         </a>
       </div>

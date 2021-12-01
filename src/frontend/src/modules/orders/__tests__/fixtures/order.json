@@ -1,0 +1,73 @@
+{
+  "id": 1,
+  "phone": "89232548731",
+  "userId": "88e9a640-8b80-437a-b0c5-863d520895b2",
+  "addressId": 1,
+  "orderPizzas": [
+    {
+      "id": 1,
+      "name": "D",
+      "orderId": 1,
+      "dough": {
+        "id": 1,
+        "name": "Тонкое",
+        "image": "/public/img/dough-light.svg",
+        "description": "Из твердых сортов пшеницы",
+        "price": 300,
+        "value": "light"
+      },
+      "sauce": { "id": 1, "name": "Томатный", "price": 50, "value": "tomato" },
+      "size": {
+        "id": 1,
+        "name": "23 см",
+        "image": "/public/img/diameter.svg",
+        "multiplier": 1,
+        "value": "small"
+      },
+      "ingredients": [
+        {
+          "id": 4,
+          "name": "Лосось",
+          "image": "/public/img/filling/salmon.svg",
+          "price": 50,
+          "value": "salmon",
+          "count": 1
+        }
+      ],
+      "quantity": 2,
+      "price": 400
+    }
+  ],
+  "orderMisc": [
+    {
+      "id": 1,
+      "name": "Cola-Cola 0,5 литра",
+      "image": "/public/img/cola.svg",
+      "price": 56,
+      "quantity": 2
+    },
+    {
+      "id": 2,
+      "name": "Острый соус",
+      "image": "/public/img/sauce.svg",
+      "price": 10,
+      "quantity": 1
+    },
+    {
+      "id": 3,
+      "name": "Картошка из печи",
+      "image": "/public/img/potato.svg",
+      "price": 170,
+      "quantity": 1
+    }
+  ],
+  "orderAddress": {
+    "id": 1,
+    "name": "Address 1",
+    "street": "Street 1",
+    "building": "1",
+    "flat": "1",
+    "comment": null,
+    "userId": "88e9a640-8b80-437a-b0c5-863d520895b2"
+  }
+}

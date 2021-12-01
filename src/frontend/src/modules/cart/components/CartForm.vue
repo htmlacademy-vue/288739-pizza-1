@@ -4,7 +4,12 @@
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
 
-        <select v-model="deliveryOption" name="test" class="select">
+        <select
+          v-model="deliveryOption"
+          name="test"
+          class="select"
+          data-test="cart-form-select"
+        >
           <option :value="1">Заберу сам</option>
           <option :value="2">Новый адрес</option>
           <template v-if="addresses.length">
@@ -26,11 +31,16 @@
           type="tel"
           name="tel"
           placeholder="+7 999-999-99-99"
+          data-test="cart-phone"
           @input="setPhone($event.target.value)"
         />
       </label>
 
-      <div v-if="!isPickupChosen" class="cart-form__address">
+      <div
+        v-if="!isPickupChosen"
+        class="cart-form__address"
+        data-test="cart-address-form"
+      >
         <span class="cart-form__label">Новый адрес:</span>
 
         <div class="cart-form__input">

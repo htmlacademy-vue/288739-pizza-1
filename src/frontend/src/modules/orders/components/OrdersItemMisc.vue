@@ -1,12 +1,20 @@
 <template>
   <li>
-    <img :src="misc.image" :alt="misc.name" width="20" height="30" />
+    <img
+      :src="misc.image"
+      :alt="misc.name"
+      width="20"
+      height="30"
+      data-test="order-misc-image"
+    />
 
     <p>
-      <span>{{ misc.name }}</span>
+      <span data-test="order-misc-name">{{ misc.name }}</span>
       <b>
-        <span v-if="misc.quantity > 1">{{ misc.quantity }}x</span>
-        <span>{{ misc.price }} ₽</span>
+        <span v-if="misc.quantity > 1" data-test="order-misc-quantity"
+          >{{ misc.quantity }}x</span
+        >
+        <span data-test="order-misc-price">{{ misc.price }} ₽</span>
       </b>
     </p>
   </li>

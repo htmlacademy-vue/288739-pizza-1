@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Address 1",
+    "street": "Street 1",
+    "building": "1",
+    "flat": "1",
+    "comment": "Comment 1",
+    "userId": "88e9a640-8b80-437a-b0c5-863d520895b2"
+  },
+  {
+    "id": 2,
+    "name": "Address 2",
+    "street": "Street 2",
+    "building": "2",
+    "flat": "2",
+    "comment": "Comment 2",
+    "userId": "88e9a640-8b80-437a-b0c5-863d520895b2"
+  }
+]
