@@ -1,15 +1,21 @@
 <template>
   <div class="user">
     <picture>
-      <img :src="user.avatar" :alt="user.name" width="72" height="72" />
+      <img
+        :src="user.avatar"
+        :alt="user.name"
+        width="72"
+        height="72"
+        data-test="user-image"
+      />
     </picture>
 
     <div class="user__name">
-      <span>{{ user.name }}</span>
+      <span data-test="user-name">{{ user.name }}</span>
     </div>
 
     <p class="user__phone">
-      Контактный телефон: <span>{{ user.phone }}</span>
+      Контактный телефон: <span data-test="user-phone">{{ user.phone }}</span>
     </p>
   </div>
 </template>
