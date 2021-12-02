@@ -50,8 +50,14 @@
 </template>
 
 <script>
+import { isLoggedIn } from "@/middlewares";
+
 export default {
   name: "Login",
+
+  layout: "AppLayoutLogin",
+
+  middlewares: [isLoggedIn],
 
   data() {
     return {
@@ -66,7 +72,7 @@ export default {
 
   methods: {
     async login() {
-      await this.$store.dispatch("Auth/login", {
+      await this.$store.dispatch("Profile/login", {
         email: this.email,
         password: this.password,
       });

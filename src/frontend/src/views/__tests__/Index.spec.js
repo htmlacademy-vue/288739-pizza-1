@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Index from "@/views/Index";
+import Index from "@/views/Index/Index";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";

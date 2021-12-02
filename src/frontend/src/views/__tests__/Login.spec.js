@@ -3,8 +3,7 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import { generateMockStore } from "@/store/mocks";
-import Login from "@/views/Login";
-import routes from "@/router/routes.js";
+import Login from "@/views/Login/Index";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -26,10 +25,10 @@ describe("Cart", () => {
   };
 
   beforeEach(() => {
-    router = new VueRouter({ routes });
+    router = new VueRouter();
     router.push("/login");
     actions = {
-      Auth: {
+      Profile: {
         login: jest.fn(),
       },
     };
@@ -71,7 +70,7 @@ describe("Cart", () => {
     const loginSubmitButton = wrapper.find('[data-test="login-submit-button"]');
     await loginSubmitButton.trigger("submit");
 
-    expect(actions.Auth.login).toHaveBeenCalled();
+    expect(actions.Profile.login).toHaveBeenCalled();
   });
 
   it("redirects to root on login submit", async () => {

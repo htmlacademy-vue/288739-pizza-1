@@ -103,7 +103,7 @@ export default {
         additionalList: this.order.orderMisc,
       });
 
-      this.$router.push({ name: "Cart" });
+      this.$router.push("/cart");
     },
   },
 };

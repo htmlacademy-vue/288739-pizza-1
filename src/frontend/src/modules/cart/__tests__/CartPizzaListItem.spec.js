@@ -4,7 +4,6 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import { generateMockStore } from "@/store/mocks";
 import pizzaPayloadJson from "@/layouts/__tests__/fixtures/pizzaPayload.json";
 import CartPizzaListItem from "@/modules/cart/components/CartPizzaListItem";
-import routes from "@/router/routes.js";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -27,7 +26,7 @@ describe("CartPizzaListItem", () => {
   };
 
   beforeEach(() => {
-    router = new VueRouter({ routes });
+    router = new VueRouter();
     router.push("/cart");
     actions = {
       Cart: {

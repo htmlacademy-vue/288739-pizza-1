@@ -54,7 +54,7 @@ export default {
   mixins: [logout],
 
   computed: {
-    ...mapState("Auth", ["isAuthenticated", "user"]),
+    ...mapState("Profile", ["isAuthenticated", "user"]),
     ...mapGetters("Cart", ["orderPrice"]),
   },
 };

@@ -27,7 +27,7 @@ export default {
   name: "ProfileUser",
 
   computed: {
-    ...mapState("Auth", ["user"]),
+    ...mapState("Profile", ["user"]),
   },
 };
 </script>

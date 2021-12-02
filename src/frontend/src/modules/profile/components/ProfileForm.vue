@@ -128,7 +128,7 @@ export default {
 
   computed: {
     ...mapState("Addresses", ["addresses"]),
-    ...mapState("Auth", ["user"]),
+    ...mapState("Profile", ["user"]),
 
     addressNumber() {
       return this.number || this.addresses.length + 1;

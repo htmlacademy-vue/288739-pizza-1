@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import VuexPlugins from "@/plugins/vuexPlugins";
-import modules from "./modules";
+import modules from "@/modules";
 
 import { UPDATE_ENTITY, DELETE_ENTITY } from "@/store/mutations-types";
 

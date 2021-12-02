@@ -43,6 +43,8 @@ import CartModal from "@/modules/cart/components/CartModal";
 export default {
   name: "Cart",
 
+  layout: "AppLayoutMain",
+
   components: {
     CartPizzaList,
     CartAdditionalList,
@@ -58,7 +60,7 @@ export default {
   },
 
   computed: {
-    ...mapState("Auth", ["isAuthenticated"]),
+    ...mapState("Profile", ["isAuthenticated"]),
     ...mapState("Cart", ["pizzaList"]),
 
     isCartEmpty() {

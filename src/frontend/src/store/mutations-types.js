@@ -25,7 +25,7 @@ export const REPEAT_ORDER = "REPEAT_ORDER";
 export const SET_ADDRESS = "SET_ADDRESS";
 export const SET_PHONE = "SET_PHONE";
 
-// AUTH
+// Profile
 export const SET_USER = "SET_USER";
 export const SET_IS_AUTHENTICATED = "SET_IS_AUTHENTICATED";
 

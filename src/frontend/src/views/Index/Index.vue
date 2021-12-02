@@ -22,6 +22,8 @@ import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 export default {
   name: "Index",
 
+  layout: "AppLayoutMain",
+
   components: {
     BuilderDoughSelector,
     BuilderSizeSelector,
