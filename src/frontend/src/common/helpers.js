@@ -23,8 +23,8 @@ export const createResources = (notifier) => ({
 
 export const setAuth = (store) => {
   store.$api.auth.setAuthHeader();
-  store.dispatch("Auth/getMe");
-  store.commit("Auth/SET_IS_AUTHENTICATED", true);
+  store.dispatch("Profile/getMe");
+  store.commit("Profile/SET_IS_AUTHENTICATED", true);
 };
 
 const getNormalizedPizza = (

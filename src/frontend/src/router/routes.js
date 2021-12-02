@@ -58,7 +58,7 @@ const defaultLayout = "AppLayoutMain";
 const notFoundPage = "NotFound";
 
 const handleNotFoundPage = async () => {
-  const module = await import(`../views/${notFoundPage}.vue`);
+  const module = await import(`../views/${notFoundPage}/Index.vue`);
   const component = await module.default;
   return {
     path: "*",

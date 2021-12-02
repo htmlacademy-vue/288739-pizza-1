@@ -2,7 +2,7 @@ import Vuex from "vuex";
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import { generateMockStore } from "@/store/mocks";
 import ordersJson from "./fixtures/orders.json";
-import Orders from "@/views/Orders";
+import Orders from "@/views/Orders/Index";
 import OrdersItem from "@/modules/orders/components/OrdersItem";
 
 const localVue = createLocalVue();

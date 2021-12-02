@@ -22,8 +22,8 @@ describe("ProfileForm", () => {
   };
 
   const authenticateUser = () => {
-    store.commit("Auth/SET_IS_AUTHENTICATED", true);
-    store.commit("Auth/SET_USER", userJson);
+    store.commit("Profile/SET_IS_AUTHENTICATED", true);
+    store.commit("Profile/SET_USER", userJson);
   };
 
   beforeEach(() => {

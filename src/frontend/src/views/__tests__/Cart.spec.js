@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import { generateMockStore } from "@/store/mocks";
 import pizzaPayloadJson from "@/layouts/__tests__/fixtures/pizzaPayload.json";
-import Cart from "@/views/Cart";
+import Cart from "@/views/Cart/Index";
 import CartPizzaList from "@/modules/cart/components/CartPizzaList";
 import CartAdditionalList from "@/modules/cart/components/CartAdditionalList";
 import CartForm from "@/modules/cart/components/CartForm";

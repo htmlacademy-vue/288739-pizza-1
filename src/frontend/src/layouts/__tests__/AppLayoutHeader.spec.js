@@ -5,7 +5,6 @@ import { generateMockStore } from "@/store/mocks";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
 import pizzaPayloadJson from "@/layouts/__tests__/fixtures/pizzaPayload.json";
 import userJson from "@/layouts/__tests__/fixtures/user.json";
-import routes from "@/router/routes.js";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -16,8 +15,8 @@ const addPizzaToCart = (store) => {
 };
 
 const authenticateUser = (store) => {
-  store.commit("Auth/SET_IS_AUTHENTICATED", true);
-  store.commit("Auth/SET_USER", userJson);
+  store.commit("Profile/SET_IS_AUTHENTICATED", true);
+  store.commit("Profile/SET_USER", userJson);
 };
 
 describe("AppLayoutHeader", () => {
@@ -42,12 +41,12 @@ describe("AppLayoutHeader", () => {
 
   beforeEach(() => {
     actions = {
-      Auth: {
+      Profile: {
         logout: jest.fn(),
       },
     };
     store = generateMockStore(actions);
-    router = new VueRouter({ routes });
+    router = new VueRouter();
   });
 
   afterEach(() => {
@@ -118,6 +117,6 @@ describe("AppLayoutHeader", () => {
     createComponent({ localVue, store, router, mocks });
     const headerLogoutLink = wrapper.find('[data-test="header-logout"]');
     await headerLogoutLink.trigger("click");
-    expect(actions.Auth.logout).toHaveBeenCalled();
+    expect(actions.Profile.logout).toHaveBeenCalled();
   });
 });

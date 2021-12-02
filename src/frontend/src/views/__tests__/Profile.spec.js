@@ -2,7 +2,7 @@ import Vuex from "vuex";
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import { generateMockStore } from "@/store/mocks";
 import addressesJson from "./fixtures/addresses.json";
-import Profile from "@/views/Profile";
+import Profile from "@/views/Profile/Index";
 import ProfileUser from "@/modules/profile/components/ProfileUser";
 import ProfileAddress from "@/modules/profile/components/ProfileAddress";
 import ProfileForm from "@/modules/profile/components/ProfileForm";

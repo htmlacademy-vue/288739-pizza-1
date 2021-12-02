@@ -6,7 +6,6 @@ import orderJson from "@/modules/orders/__tests__/fixtures/order.json";
 import OrdersItem from "@/modules/orders/components/OrdersItem";
 import OrdersItemPizza from "@/modules/orders/components/OrdersItemPizza";
 import OrdersItemMisc from "@/modules/orders/components/OrdersItemMisc";
-import routes from "@/router/routes.js";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -30,7 +29,7 @@ describe("OrdersItem", () => {
   };
 
   beforeEach(() => {
-    router = new VueRouter({ routes });
+    router = new VueRouter();
     router.push("/orders");
     actions = {
       Orders: {

@@ -28,7 +28,7 @@ describe("AppLayoutLogin", () => {
   };
 
   beforeEach(() => {
-    router = new VueRouter({ routes });
+    router = new VueRouter();
   });
 
   afterEach(() => {

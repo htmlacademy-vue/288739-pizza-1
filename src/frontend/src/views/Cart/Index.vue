@@ -60,7 +60,7 @@ export default {
   },
 
   computed: {
-    ...mapState("Auth", ["isAuthenticated"]),
+    ...mapState("Profile", ["isAuthenticated"]),
     ...mapState("Cart", ["pizzaList"]),
 
     isCartEmpty() {

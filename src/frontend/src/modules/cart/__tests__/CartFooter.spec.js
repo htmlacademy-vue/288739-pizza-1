@@ -4,7 +4,6 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import { generateMockStore } from "@/store/mocks";
 import pizzaPayloadJson from "@/layouts/__tests__/fixtures/pizzaPayload.json";
 import CartFooter from "@/modules/cart/components/CartFooter";
-import routes from "@/router/routes.js";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -29,7 +28,7 @@ describe("CartFooter", () => {
   };
 
   beforeEach(() => {
-    router = new VueRouter({ routes });
+    router = new VueRouter();
     router.push("/cart");
     store = generateMockStore();
   });

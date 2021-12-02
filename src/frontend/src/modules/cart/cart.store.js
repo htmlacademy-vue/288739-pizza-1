@@ -100,7 +100,7 @@ export default {
     },
 
     async submitOrder({ state, rootState }) {
-      const userId = rootState.Auth.user?.id ?? null;
+      const userId = rootState.Profile.user?.id ?? null;
 
       const pizzaList = state.pizzaList.map((pizza) => ({
         name: pizza.name,

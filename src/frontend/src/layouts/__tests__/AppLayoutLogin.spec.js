@@ -1,6 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import AppLayoutLogin from "@/layouts/AppLayoutLogin";
-import Login from "@/views/Login";
+import Login from "@/views/Login/Index";
 
 describe("AppLayoutLogin", () => {
   let wrapper;
