@@ -2,7 +2,6 @@ import VueRouter from "vue-router";
 import { createLocalVue, mount } from "@vue/test-utils";
 import AppLayoutWithSidebar from "@/layouts/AppLayoutWithSidebar";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
-import routes from "@/router/routes.js";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
