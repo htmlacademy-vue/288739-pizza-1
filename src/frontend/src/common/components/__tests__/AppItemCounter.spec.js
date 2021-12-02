@@ -1,12 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
-import ItemCounter from "@/common/components/ItemCounter";
+import AppItemCounter from "@/common/components/AppItemCounter";
 
-describe("ItemCounter", () => {
+describe("AppItemCounter", () => {
   let wrapper;
   let propsData;
 
   const createComponent = (options) => {
-    wrapper = shallowMount(ItemCounter, options);
+    wrapper = shallowMount(AppItemCounter, options);
   };
 
   beforeEach(() => {

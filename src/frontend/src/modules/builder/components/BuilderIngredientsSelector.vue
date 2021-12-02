@@ -7,7 +7,7 @@
         <div class="ingredients__sauce sauce">
           <p>Основной соус:</p>
 
-          <RadioButton
+          <AppRadioButton
             v-for="sauce in sauceList"
             :key="sauce.id"
             :value="sauce.value"
@@ -23,7 +23,7 @@
             "
           >
             <span>{{ sauce.name }}</span>
-          </RadioButton>
+          </AppRadioButton>
         </div>
 
         <div class="ingredients__filling">
@@ -40,12 +40,12 @@
                 :transfer-data="ingredient"
                 :is-draggable="ingredient.count < 3"
               >
-                <SelectorItem :value="ingredient.value">
+                <AppSelectorItem :value="ingredient.value">
                   {{ ingredient.name }}
-                </SelectorItem>
+                </AppSelectorItem>
               </AppDrag>
 
-              <ItemCounter
+              <AppItemCounter
                 :value="ingredient.count"
                 :min="0"
                 :max="3"
@@ -74,14 +74,14 @@ import {
 } from "@/store/mutations-types";
 
 import AppDrag from "@/common/components/AppDrag";
-import RadioButton from "@/common/components/RadioButton";
-import SelectorItem from "@/common/components/SelectorItem";
-import ItemCounter from "@/common/components/ItemCounter";
+import AppRadioButton from "@/common/components/AppRadioButton";
+import AppSelectorItem from "@/common/components/AppSelectorItem";
+import AppItemCounter from "@/common/components/AppItemCounter";
 
 export default {
   name: "BuilderIngredientsSelector",
 
-  components: { RadioButton, SelectorItem, ItemCounter, AppDrag },
+  components: { AppRadioButton, AppSelectorItem, AppItemCounter, AppDrag },
 
   computed: {
     ...mapState("Builder", ["sauceList", "pizza", "ingredients"]),

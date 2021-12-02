@@ -9,7 +9,7 @@
       </h2>
 
       <div class="sheet__content dough">
-        <RadioButton
+        <AppRadioButton
           v-for="dough in doughList"
           :key="dough.id"
           :value="dough.value"
@@ -26,7 +26,7 @@
         >
           <b>{{ dough.name }}</b>
           <span>{{ dough.description }}</span>
-        </RadioButton>
+        </AppRadioButton>
       </div>
     </div>
   </div>
@@ -36,12 +36,12 @@
 import { mapState, mapMutations } from "vuex";
 import { SET_PIZZA_PROPERTY } from "@/store/mutations-types";
 
-import RadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 export default {
   name: "BuilderDoughSelector",
 
-  components: { RadioButton },
+  components: { AppRadioButton },
 
   computed: {
     ...mapState("Builder", ["doughList", "pizza"]),

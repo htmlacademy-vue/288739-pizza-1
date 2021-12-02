@@ -9,7 +9,7 @@
       </h2>
 
       <div class="sheet__content diameter">
-        <RadioButton
+        <AppRadioButton
           v-for="size in sizeList"
           :key="size.id"
           :value="size.value"
@@ -25,7 +25,7 @@
           "
         >
           <span>{{ size.name }}</span>
-        </RadioButton>
+        </AppRadioButton>
       </div>
     </div>
   </div>
@@ -35,12 +35,12 @@
 import { mapState, mapMutations } from "vuex";
 import { SET_PIZZA_PROPERTY } from "@/store/mutations-types";
 
-import RadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 export default {
   name: "BuilderSizeSelector",
 
-  components: { RadioButton },
+  components: { AppRadioButton },
 
   computed: {
     ...mapState("Builder", ["sizeList", "pizza"]),

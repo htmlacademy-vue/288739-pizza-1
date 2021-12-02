@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: "ItemCounter",
+  name: "AppItemCounter",
 
   props: {
     value: {

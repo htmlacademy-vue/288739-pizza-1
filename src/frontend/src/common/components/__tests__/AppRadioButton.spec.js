@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import RadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
-describe("RadioButton", () => {
+describe("AppRadioButton", () => {
   let wrapper;
   let propsData;
 
@@ -14,7 +14,7 @@ describe("RadioButton", () => {
   });
 
   const createComponent = (options) => {
-    wrapper = shallowMount(RadioButton, options);
+    wrapper = shallowMount(AppRadioButton, options);
   };
 
   afterEach(() => {
