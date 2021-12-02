@@ -23,11 +23,11 @@
 
     <div class="layout__button">
       <button
+        :disabled="isAddressFormShown"
         type="button"
         class="button button--border"
         data-test="open-new-address-form-button"
         @click="onAddressFormShowButtonClick"
-        :disabled="isAddressFormShown"
       >
         Добавить новый адрес
       </button>

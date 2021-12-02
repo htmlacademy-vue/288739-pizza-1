@@ -7,8 +7,8 @@
     <template v-if="orders.length">
       <OrdersItem
         v-for="order of orders"
-        :order="order"
         :key="order.id"
+        :order="order"
         data-test="orders-item"
       />
     </template>
@@ -37,14 +37,14 @@ export default {
     ...mapState("Orders", ["orders"]),
   },
 
-  methods: {
-    ...mapActions("Orders", { getOrders: "query" }),
-    ...mapActions("Addresses", { getAddresses: "query" }),
-  },
-
   created() {
     this.getOrders();
     this.getAddresses();
+  },
+
+  methods: {
+    ...mapActions("Orders", { getOrders: "query" }),
+    ...mapActions("Addresses", { getAddresses: "query" }),
   },
 };
 </script>

@@ -34,8 +34,8 @@
         <a
           href="#"
           class="header__logout"
-          @click.prevent="$logout"
           data-test="header-logout"
+          @click.prevent="$logout"
         >
           <span>Выйти</span>
         </a>
