@@ -50,8 +50,14 @@
 </template>
 
 <script>
+import { isLoggedIn } from "@/middlewares";
+
 export default {
   name: "Login",
+
+  layout: "AppLayoutLogin",
+
+  middlewares: [isLoggedIn],
 
   data() {
     return {

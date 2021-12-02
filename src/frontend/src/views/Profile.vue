@@ -41,9 +41,14 @@ import ProfileForm from "@/modules/profile/components/ProfileForm";
 import ProfileAddress from "@/modules/profile/components/ProfileAddress";
 
 import { mapActions, mapState } from "vuex";
+import { auth } from "@/middlewares";
 
 export default {
   name: "Profile",
+
+  layout: "AppLayoutWithSidebar",
+
+  middlewares: [auth],
 
   components: { ProfileUser, ProfileForm, ProfileAddress },
 
