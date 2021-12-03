@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <AppLayout>
-      <transition name="slide" mode="out-in" appear>
+      <transition
+        name="slide"
+        mode="out-in"
+        appear
+      >
         <router-view />
       </transition>
     </AppLayout>

@@ -1,5 +1,8 @@
 <template>
-  <ul class="cart-list sheet" data-test="pizza-list">
+  <ul
+    class="cart-list sheet"
+    data-test="pizza-list"
+  >
     <CartPizzaListItem
       v-for="pizza in pizzaList"
       :key="pizza.id"
@@ -23,3 +26,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "~@/assets/scss/mixins/mixins";
+
+.cart-list {
+  @include clear-list;
+
+  padding: 15px 0;
+}
+</style>

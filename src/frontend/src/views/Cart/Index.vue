@@ -1,5 +1,9 @@
 <template>
-  <form class="layout-form" data-test="cart-form" @submit.prevent="onSubmit">
+  <form
+    class="layout-form"
+    data-test="cart-form"
+    @submit.prevent="onSubmit"
+  >
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
@@ -24,8 +28,15 @@
 
     <CartFooter v-if="!isCartEmpty" />
 
-    <transition name="fade" mode="out-in" appear>
-      <CartModal v-if="isModalShown" @close="onModalClose" />
+    <transition
+      name="fade"
+      mode="out-in"
+      appear
+    >
+      <CartModal
+        v-if="isModalShown"
+        @close="onModalClose"
+      />
     </transition>
   </form>
 </template>
@@ -41,9 +52,7 @@ import CartFooter from "@/modules/cart/components/CartFooter";
 import CartModal from "@/modules/cart/components/CartModal";
 
 export default {
-  name: "Cart",
-
-  layout: "AppLayoutMain",
+  name: "CartIndex",
 
   components: {
     CartPizzaList,
@@ -52,6 +61,8 @@ export default {
     CartFooter,
     CartModal,
   },
+
+  layout: "AppLayoutMain",
 
   data() {
     return {
@@ -99,7 +110,38 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--big {
+    @include b-s36-h42;
+  }
+}
+
+.container {
+  width: 770px;
+  margin: 0 auto;
+}
+
+.layout-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.cart__title {
+  margin-bottom: 15px;
+}
+
+.cart__empty {
+  padding: 20px 30px;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.7s ease;

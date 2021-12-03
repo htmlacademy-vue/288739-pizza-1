@@ -7,13 +7,16 @@
     <template v-if="orders.length">
       <OrdersItem
         v-for="order of orders"
-        :order="order"
         :key="order.id"
+        :order="order"
         data-test="orders-item"
       />
     </template>
 
-    <p v-else data-test="orders-empty-message">
+    <p
+      v-else
+      data-test="orders-empty-message"
+    >
       Вы не сделали ещё ни одного заказа.
     </p>
   </div>
@@ -25,26 +28,40 @@ import OrdersItem from "@/modules/orders/components/OrdersItem";
 import { auth } from "@/middlewares";
 
 export default {
-  name: "Orders",
+  name: "OrdersIndex",
+
+  components: { OrdersItem },
 
   layout: "AppLayoutWithSidebar",
 
   middlewares: [auth],
 
-  components: { OrdersItem },
-
   computed: {
     ...mapState("Orders", ["orders"]),
-  },
-
-  methods: {
-    ...mapActions("Orders", { getOrders: "query" }),
-    ...mapActions("Addresses", { getAddresses: "query" }),
   },
 
   created() {
     this.getOrders();
     this.getAddresses();
   },
+
+  methods: {
+    ...mapActions("Orders", { getOrders: "query" }),
+    ...mapActions("Addresses", { getAddresses: "query" }),
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--big {
+    @include b-s36-h42;
+  }
+}
+</style>

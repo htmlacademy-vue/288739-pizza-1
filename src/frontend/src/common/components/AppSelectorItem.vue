@@ -1,3 +1,29 @@
+<template>
+  <span
+    :class="`filling--${value}`"
+    class="filling"
+    data-test="selector-item"
+  >
+    <slot />
+  </span>
+</template>
+
+<script>
+export default {
+  name: "AppSelectorItem",
+
+  props: {
+    value: {
+      type: String,
+      required: true,
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import "~@/assets/scss/mixins/mixins";
+
 .filling {
   @include r-s14-h16;
 
@@ -84,3 +110,4 @@
     background-image: url("~@/assets/img/filling/salmon.svg");
   }
 }
+</style>
