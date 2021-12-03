@@ -163,3 +163,175 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.address-form {
+  $bl: &;
+
+  position: relative;
+
+  padding-top: 0;
+  padding-bottom: 26px;
+
+  &--opened {
+    #{$bl}__header {
+      padding: 16px;
+    }
+  }
+}
+
+.address-form__header {
+  @include b-s14-h16;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 21px;
+  padding: 10px 16px;
+
+  border-bottom: 1px solid rgba($green-500, 0.1);
+}
+
+.address-form__input {
+  width: 100%;
+  margin-bottom: 16px;
+
+  &--size {
+    &--normal {
+      width: 60.5%;
+    }
+
+    &--small {
+      width: 18%;
+    }
+  }
+}
+
+.address-form__buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 0 16px;
+
+  button {
+    margin-left: 16px;
+    padding: 16px 27px;
+  }
+}
+
+.address-form__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  width: 80%;
+  padding: 16px;
+}
+
+.input {
+  display: block;
+
+  span {
+    @include r-s14-h16;
+
+    display: block;
+
+    margin-bottom: 4px;
+  }
+
+  input {
+    @include r-s16-h19;
+
+    display: block;
+
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 8px 16px;
+
+    transition: 0.3s;
+
+    color: $black;
+    border: 1px solid $purple-400;
+    border-radius: 8px;
+    outline: none;
+    background-color: $white;
+
+    font-family: inherit;
+
+    &:focus {
+      border-color: $green-500;
+    }
+  }
+
+  &:hover {
+    input {
+      border-color: $black;
+    }
+  }
+}
+
+.button {
+  $bl: &;
+
+  @include b-s18-h21;
+  font-family: inherit;
+  display: block;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: $shadow-medium;
+
+  background-color: $green-500;
+
+  &:hover:not(:active):not(:disabled) {
+    background-color: $green-400;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $green-600;
+  }
+
+  &:focus:not(:disabled) {
+    opacity: 0.5;
+  }
+
+  &:disabled {
+    background-color: $green-300;
+    color: rgba($white, 0.2);
+    cursor: default;
+  }
+
+  &--transparent {
+    @include b-s14-h16;
+    background-color: transparent;
+    box-shadow: none;
+    color: $black;
+
+    &:hover:not(:active):not(:disabled) {
+      color: $red-800;
+      background-color: transparent;
+    }
+
+    &:active:not(:disabled) {
+      color: $red-900;
+      background-color: transparent;
+    }
+
+    &:disabled {
+      opacity: 0.25;
+    }
+  }
+}
+</style>

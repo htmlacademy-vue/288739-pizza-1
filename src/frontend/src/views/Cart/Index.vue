@@ -99,7 +99,38 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.title {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+
+  color: $black;
+
+  &--big {
+    @include b-s36-h42;
+  }
+}
+
+.container {
+  width: 770px;
+  margin: 0 auto;
+}
+
+.layout-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.cart__title {
+  margin-bottom: 15px;
+}
+
+.cart__empty {
+  padding: 20px 30px;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.7s ease;

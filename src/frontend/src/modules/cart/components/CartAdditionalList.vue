@@ -25,3 +25,19 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "~@/assets/scss/mixins/mixins";
+
+.cart__additional {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.additional-list {
+  @include clear-list;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>

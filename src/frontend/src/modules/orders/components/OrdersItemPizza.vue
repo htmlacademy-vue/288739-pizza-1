@@ -68,3 +68,44 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "~@/assets/scss/mixins/mixins";
+
+.order__item {
+  display: flex;
+
+  width: 310px;
+  margin-right: 33px;
+  margin-bottom: 32px;
+}
+
+.order__price {
+  @include b-s16-h19;
+
+  margin: 0;
+
+  white-space: nowrap;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+}
+
+.product__text {
+  margin-left: 15px;
+
+  h2 {
+    @include b-s18-h21;
+
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    @include clear-list;
+    @include l-s11-h13;
+  }
+}
+</style>
