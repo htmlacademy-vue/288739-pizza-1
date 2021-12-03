@@ -93,7 +93,12 @@
         Удалить
       </button>
 
-      <button type="submit" class="button">Сохранить</button>
+      <button
+        type="submit"
+        class="button"
+      >
+        Сохранить
+      </button>
     </div>
   </form>
 </template>

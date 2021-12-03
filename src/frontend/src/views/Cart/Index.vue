@@ -1,5 +1,9 @@
 <template>
-  <form class="layout-form" data-test="cart-form" @submit.prevent="onSubmit">
+  <form
+    class="layout-form"
+    data-test="cart-form"
+    @submit.prevent="onSubmit"
+  >
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
@@ -24,8 +28,15 @@
 
     <CartFooter v-if="!isCartEmpty" />
 
-    <transition name="fade" mode="out-in" appear>
-      <CartModal v-if="isModalShown" @close="onModalClose" />
+    <transition
+      name="fade"
+      mode="out-in"
+      appear
+    >
+      <CartModal
+        v-if="isModalShown"
+        @close="onModalClose"
+      />
     </transition>
   </form>
 </template>

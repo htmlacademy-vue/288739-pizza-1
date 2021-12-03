@@ -1,5 +1,8 @@
 <template>
-  <ul v-if="notifications.length" class="notifications__wrapper">
+  <ul
+    v-if="notifications.length"
+    class="notifications__wrapper"
+  >
     <li
       v-for="notification in notifications"
       :key="notification.id"

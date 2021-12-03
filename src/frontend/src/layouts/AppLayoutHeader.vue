@@ -1,7 +1,10 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <router-link to="/" class="logo">
+      <router-link
+        to="/"
+        class="logo"
+      >
         <img
           src="@/assets/img/logo.svg"
           alt="V!U!E! Pizza logo"
@@ -10,10 +13,16 @@
         />
       </router-link>
     </div>
-    <div class="header__cart" data-test="header-cart">
-      <router-link to="/cart" data-test="header-cart-link"
-        >{{ orderPrice }} ₽</router-link
+    <div
+      class="header__cart"
+      data-test="header-cart"
+    >
+      <router-link
+        to="/cart"
+        data-test="header-cart-link"
       >
+        {{ orderPrice }} ₽
+      </router-link>
     </div>
     <div class="header__user">
       <router-link
@@ -26,8 +35,17 @@
       </router-link>
 
       <template v-else>
-        <router-link v-if="user" to="/profile" data-test="header-profile-link">
-          <img :src="user.avatar" :alt="user.name" width="32" height="32" />
+        <router-link
+          v-if="user"
+          to="/profile"
+          data-test="header-profile-link"
+        >
+          <img
+            :src="user.avatar"
+            :alt="user.name"
+            width="32"
+            height="32"
+          />
           <span>{{ user.name }}</span>
         </router-link>
 

@@ -1,6 +1,13 @@
 <template>
-  <div class="backdrop" data-test="modal-backdrop" @click="onClose">
-    <div class="popup" @click.stop>
+  <div
+    class="backdrop"
+    data-test="modal-backdrop"
+    @click="onClose"
+  >
+    <div
+      class="popup"
+      @click.stop
+    >
       <button
         class="close btn-close"
         data-test="modal-close-button"

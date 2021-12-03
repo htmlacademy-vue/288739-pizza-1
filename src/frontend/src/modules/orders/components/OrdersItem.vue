@@ -40,7 +40,10 @@
       />
     </ul>
 
-    <ul v-if="order.orderMisc" class="order__additional">
+    <ul
+      v-if="order.orderMisc"
+      class="order__additional"
+    >
       <OrdersItemMisc
         v-for="misc in order.orderMisc"
         :key="misc.id"
@@ -48,7 +51,11 @@
       />
     </ul>
 
-    <p v-if="order.addressId" class="order__address" data-test="order-address">
+    <p
+      v-if="order.addressId"
+      class="order__address"
+      data-test="order-address"
+    >
       Адрес доставки: {{ orderAddressName }}
     </p>
   </section>

@@ -1,5 +1,9 @@
 <template>
-  <span :class="`filling--${value}`" class="filling" data-test="selector-item">
+  <span
+    :class="`filling--${value}`"
+    class="filling"
+    data-test="selector-item"
+  >
     <slot />
   </span>
 </template>

@@ -13,7 +13,10 @@
       />
     </template>
 
-    <p v-else data-test="orders-empty-message">
+    <p
+      v-else
+      data-test="orders-empty-message"
+    >
       Вы не сделали ещё ни одного заказа.
     </p>
   </div>

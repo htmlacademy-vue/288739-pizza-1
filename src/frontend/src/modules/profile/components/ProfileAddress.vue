@@ -26,7 +26,10 @@
         {{ address.street }}, д. {{ address.building
         }}<template v-if="address.flat"> , оф. {{ address.flat }} </template>
       </p>
-      <small v-if="address.comment" data-test="address-comment">
+      <small
+        v-if="address.comment"
+        data-test="address-comment"
+      >
         {{ address.comment }}
       </small>
     </div>

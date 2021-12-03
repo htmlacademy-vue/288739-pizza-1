@@ -31,6 +31,18 @@ module.exports = {
     "vue/custom-event-name-casing": "error",
     "vue/match-component-file-name": "error",
     "vue/new-line-between-multi-line-property": "error",
+    "vue/max-attributes-per-line": [
+      "error",
+      {
+        singleline: {
+          max: 1,
+        },
+        multiline: {
+          max: 1,
+        },
+      },
+    ],
+    "prettier/prettier": "off"
   },
   parserOptions: {
     parser: "babel-eslint",

@@ -11,7 +11,10 @@
     <p>
       <span data-test="order-misc-name">{{ misc.name }}</span>
       <b>
-        <span v-if="misc.quantity > 1" data-test="order-misc-quantity">
+        <span
+          v-if="misc.quantity > 1"
+          data-test="order-misc-quantity"
+        >
           {{ misc.quantity }}x
         </span>
         <span data-test="order-misc-price">{{ misc.price }} ₽</span>

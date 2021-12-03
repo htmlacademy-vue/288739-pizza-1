@@ -18,7 +18,10 @@
       class="layout__address"
       data-test="profile-form-wrapper"
     >
-      <ProfileForm @close="onAddressFormClose" @submit="onAddressSubmit" />
+      <ProfileForm
+        @close="onAddressFormClose"
+        @submit="onAddressSubmit"
+      />
     </div>
 
     <div class="layout__button">

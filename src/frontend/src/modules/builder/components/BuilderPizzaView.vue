@@ -23,9 +23,16 @@
           })
         "
       >
-        <div :class="pizzaFoundationClass" class="pizza" data-test="pizza-view">
+        <div
+          :class="pizzaFoundationClass"
+          class="pizza"
+          data-test="pizza-view"
+        >
           <div class="pizza__wrapper">
-            <transition-group name="drop" mode="out-in">
+            <transition-group
+              name="drop"
+              mode="out-in"
+            >
               <template v-for="ingredient in selectedPizzaIngredients">
                 <div
                   v-if="ingredient.count > 0"

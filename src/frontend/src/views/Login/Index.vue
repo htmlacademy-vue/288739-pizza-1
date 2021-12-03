@@ -42,7 +42,11 @@
           />
         </label>
       </div>
-      <button type="submit" class="button" data-test="login-submit-button">
+      <button
+        type="submit"
+        class="button"
+        data-test="login-submit-button"
+      >
         Авторизоваться
       </button>
     </form>
