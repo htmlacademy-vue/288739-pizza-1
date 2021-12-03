@@ -58,6 +58,7 @@ export default {
           this.pizza.dough.value === "light"
             ? "на тонком тесте"
             : "на толстом тесте",
+
         size: this.pizza.size.name,
         sauce: this.pizza.sauce.name.toLowerCase(),
         ingredients: this.pizza.ingredients

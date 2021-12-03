@@ -41,9 +41,7 @@ import CartFooter from "@/modules/cart/components/CartFooter";
 import CartModal from "@/modules/cart/components/CartModal";
 
 export default {
-  name: "Cart",
-
-  layout: "AppLayoutMain",
+  name: "CartIndex",
 
   components: {
     CartPizzaList,
@@ -52,6 +50,8 @@ export default {
     CartFooter,
     CartModal,
   },
+
+  layout: "AppLayoutMain",
 
   data() {
     return {

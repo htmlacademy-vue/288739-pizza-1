@@ -20,9 +20,7 @@ import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngr
 import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 
 export default {
-  name: "Index",
-
-  layout: "AppLayoutMain",
+  name: "IndexIndex",
 
   components: {
     BuilderDoughSelector,
@@ -30,6 +28,8 @@ export default {
     BuilderIngredientsSelector,
     BuilderPizzaView,
   },
+
+  layout: "AppLayoutMain",
 };
 </script>
 

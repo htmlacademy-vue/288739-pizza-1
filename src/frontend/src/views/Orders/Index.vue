@@ -25,13 +25,13 @@ import OrdersItem from "@/modules/orders/components/OrdersItem";
 import { auth } from "@/middlewares";
 
 export default {
-  name: "Orders",
+  name: "OrdersIndex",
+
+  components: { OrdersItem },
 
   layout: "AppLayoutWithSidebar",
 
   middlewares: [auth],
-
-  components: { OrdersItem },
 
   computed: {
     ...mapState("Orders", ["orders"]),

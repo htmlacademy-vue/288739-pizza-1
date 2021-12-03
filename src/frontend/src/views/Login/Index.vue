@@ -53,7 +53,7 @@
 import { isLoggedIn } from "@/middlewares";
 
 export default {
-  name: "Login",
+  name: "LoginIndex",
 
   layout: "AppLayoutLogin",
 

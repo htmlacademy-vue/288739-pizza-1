@@ -44,13 +44,13 @@ import { mapActions, mapState } from "vuex";
 import { auth } from "@/middlewares";
 
 export default {
-  name: "Profile",
+  name: "ProfileIndex",
+
+  components: { ProfileUser, ProfileForm, ProfileAddress },
 
   layout: "AppLayoutWithSidebar",
 
   middlewares: [auth],
-
-  components: { ProfileUser, ProfileForm, ProfileAddress },
 
   data() {
     return {
